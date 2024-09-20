@@ -75,7 +75,7 @@ const BlendTableItems = () => {
 
   return (
     <>
-      {data.length > 0 && (
+      {data?.length > 0 && (
         <div className="mt-4 flex w-full flex-col items-center gap-3 rounded-lg">
           <div className="w-full max-w-2xl rounded-3xl bg-gradient-to-b from-white to-malibu-300 p-2">
             <div className="mx-auto mt-4 w-full rounded-2xl bg-white p-1">

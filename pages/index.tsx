@@ -190,6 +190,7 @@ const LifestyleQuestionnaire = () => {
     }
     return false;
   };
+  console.log(getValues().name);
 
   const onSubmit = async (data: any) => {
     const updatedData = { ...data };
@@ -212,7 +213,7 @@ const LifestyleQuestionnaire = () => {
 
     // Filter out unnecessary fields and format answers for API
     const formattedData = {
-      name: updatedData.name, // Include name in the payload
+      name: getValues().name, // Include name in the payload
       email: updatedData.email, // Include email in the payload
       answers: Object.keys(updatedData)
         .filter(
@@ -229,7 +230,7 @@ const LifestyleQuestionnaire = () => {
           answer: updatedData[key],
         })),
     };
-
+   console.log(formattedData);
     try {
       // Submit data to API
       const res = await fetch(
@@ -245,10 +246,10 @@ const LifestyleQuestionnaire = () => {
       );
       console.log(res)
       if (res.ok) {
-        const responseData = await res.json();
-        console.log("Submission success:", responseData);
-        toast.success("Submission successful!"); // Show success message
         setQuizResults(false);
+        // const responseData = await res.json();
+        // console.log("Submission success:", responseData);
+        toast.success("Submission successful!"); // Show success message
         // router.push('/questionnaire');
       } else {
         const errorData = await res.json();
@@ -792,7 +793,10 @@ const LifestyleQuestionnaire = () => {
           <div className="w-full max-w-4xl">
             <div className="rounded-lg bg-white lg:px-2 lg:py-3 lg:shadow">
               <div className="relative min-h-[500px] min-w-[300px] overflow-hidden rounded border-shuttle-gray-100 bg-lightbg lg:border lg:border-dashed lg:p-2">
-                <div className="mb-6 text-center px-16 flex flex-col justify-center items-center">
+                <div
+                  onClick={() => setIntroSection(false)}
+                  className="mb-6 text-center px-16 flex flex-col justify-center items-center"
+                >
                   <img
                     src={Logo.src}
                     className="w-auto max-w-[100%] h-8 mt-10"
@@ -816,7 +820,7 @@ const LifestyleQuestionnaire = () => {
                     gemaakt supplement te berekenen.
                   </p>
                   <a
-                    className="flex mt-10 w-full items-center justify-center rounded-3xl bg-malibu-300 px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-froly-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300"
+                    className="flex w-full justify-center rounded-3xl bg-gradient-to-r from-malibu-300 to-froly-400 px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gradient-to-r hover:from-froly-400 hover:to-malibu-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300 mt-10"
                     href="#"
                   >
                     Start de vitaminetest
@@ -830,7 +834,6 @@ const LifestyleQuestionnaire = () => {
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      onClick={() => setIntroSection(false)}
                       className="lucide lucide-move-right ml-2 h-4"
                     >
                       <path d="M18 8L22 12L18 16"></path>
