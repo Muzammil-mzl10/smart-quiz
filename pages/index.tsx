@@ -779,6 +779,7 @@ const LifestyleQuestionnaire = () => {
         );
     }
   };
+  
 
   const allQuestions = renderQuestions();
   const progressPercentage =
@@ -794,7 +795,9 @@ const LifestyleQuestionnaire = () => {
                 <div className="mb-6 text-center px-16 flex flex-col justify-center items-center">
                   <img
                     src={Logo.src}
-                    className="h-14 w-64 mt-10"
+                    className="w-auto max-w-[100%] h-8 mt-10"
+                    height={120}
+                    width={736}
                     alt="smart blend"
                   />
                   <h1 className="mt-16 text-2xl font-bold">
@@ -812,12 +815,35 @@ const LifestyleQuestionnaire = () => {
                     wetenschappelijke onderzoeken, om een volledig op maat
                     gemaakt supplement te berekenen.
                   </p>
-                  <button
+                  <a
+                    className="flex mt-10 w-full items-center justify-center rounded-3xl bg-malibu-300 px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-froly-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300"
+                    href="#"
+                  >
+                    Start de vitaminetest
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      onClick={() => setIntroSection(false)}
+                      className="lucide lucide-move-right ml-2 h-4"
+                    >
+                      <path d="M18 8L22 12L18 16"></path>
+                      <path d="M2 12H22"></path>
+                    </svg>
+                  </a>
+
+                  {/* <button
                     onClick={() => setIntroSection(false)}
                     className="bg-[#78C1F3] hover:scale-110 ease-in duration-500 text-white py-4 px-8 rounded-3xl font-bold text-xl mt-10"
                   >
                     Start de vitaminetest
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="rounded-lg bg-white p-6 shadow-lg"></div>
