@@ -725,7 +725,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
             />
             <div className="flex space-y-10  w-[35vw] flex-col justify-start items-start">
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
-                <img src="./icons8-blue-tick-50.png" className="w-10 h-10" />
+                <img src="./Checkmarkicon-smartblendblue.png" className="w-10 h-10" />
                 <div className="flex flex-col justify-start items-start">
                   <div className="font-bold">Echt Gepersonaliseerd</div>
                   <div className="font-light">
@@ -735,7 +735,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                 </div>
               </div>
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
-                <img src="./icons8-blue-tick-50.png" className="w-10 h-10" />
+                <img src="./Checkmarkicon-smartblendblue.png" className="w-10 h-10" />
                 <div className="flex flex-col justify-start items-start">
                   <div className="font-bold">Wetenschappelijk Onderbouwd</div>
                   <div className="font-light">
@@ -745,7 +745,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                 </div>
               </div>
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
-                <img src="./icons8-blue-tick-50.png" className="w-10 h-10" />
+                <img src="./Checkmarkicon-smartblendblue.png" className="w-10 h-10" />
                 <div className="flex flex-col justify-start items-start">
                   <div className="font-bold">
                     Tot 50 Verschillende Voedingsstoffen in Jouw Formule

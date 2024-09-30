@@ -28,6 +28,7 @@ import BlendTab from "@/component/BlendTableItems";
 
 const LifestyleQuestionnaire = () => {
   const [quizResults, setQuizResults] = useState(true);
+  const [startQuiz, setStartQuiz] = useState(true);
   const [introSection, setIntroSection] = useState(true);
   const [processedAnswers, setProcessedAnswers] = useState<any>(null); // Use this to store processed data
   const { register, handleSubmit, control, watch, setValue, getValues, reset } =
@@ -113,7 +114,7 @@ const LifestyleQuestionnaire = () => {
     Q40: [1],
   });
   const [formData, setFormData] = useState<any>(getValues());
- 
+
   useEffect(() => {
     const values = getValues();
     setFormData(values);
@@ -193,16 +194,15 @@ const LifestyleQuestionnaire = () => {
     }
     return false;
   };
- 
 
-   const {
-     data: computationData,
-     isLoading,
-     error,
-   } = useComputation(processedAnswers);
- console.log(processedAnswers)
+  const {
+    data: computationData,
+    isLoading,
+    error,
+  } = useComputation(processedAnswers);
+  console.log(processedAnswers);
   console.log(computationData);
-  
+
   const onSubmit = async (data: any) => {
     try {
       const updatedData = { ...data };
@@ -238,7 +238,7 @@ const LifestyleQuestionnaire = () => {
       const token = Cookies.get("authToken"); // Get the token from cookies
       const headers = {
         "Content-Type": "application/json",
-      } as any
+      } as any;
 
       // Only add the Authorization header if the token is defined
       if (token) {
@@ -253,18 +253,18 @@ const LifestyleQuestionnaire = () => {
           body: JSON.stringify(formattedData),
         }
       );
-    console.log("response: ", res)
+      console.log("response: ", res);
       if (res.ok) {
         // If submission is successful, save the form data to state and trigger the computation
         setProcessedAnswers(formattedData.answers);
         setQuizResults(false);
         toast.success("Submission successful!");
-        console.log("success")
+        console.log("success");
       } else {
         const errorData = await res.json();
         console.error("Submission error:", errorData);
         toast.error("Submission failed! Please try again.");
-        console.log("failed")
+        console.log("failed");
       }
     } catch (error) {
       console.error("Submission error:", error);
@@ -796,26 +796,62 @@ const LifestyleQuestionnaire = () => {
   const allQuestions = renderQuestions();
   const progressPercentage =
     ((currentStep + 1) / (allQuestions.length + 5)) * 100; // Adjusted step count
- 
+
   return (
-    <div className="mt-4 flex items-center justify-center">
-      {quizResults ? (
+    <div
+      className={
+        startQuiz
+          ? "flex items-center justify-center overflow-hidden"
+          : "mt-4 lex items-center justify-center"
+      }
+    >
+      {startQuiz ? (
+        <div className="h-[100vh] w-[100vw] md:space-x-5 block md:flex">
+          <div className="w-1/2">
+            <img
+              src="https://go-checkout.bioniq.com/images/pills-1.webp"
+              className="w-full h-[100vh] object-cover"
+            />
+          </div>
+          <div className="w-1/2 flex justify-start items-center relative">
+            <img src="https://go-checkout.bioniq.com/assets/logo-92293984.svg" className="absolute top-5 left-0" />
+            <div className="flex flex-col justify-start">
+              <div className="font-bold text-4xl tracking-wider">
+                Go For Health
+              </div>
+              <div className="mt-5 font-semibold w-[40vw] text-lg">
+                To help us understand what vitamins and microelements you may be
+                deficient in, please answer the following questions.
+              </div>
+              <div className="mt-5 font-semibold w-[40vw] text-lg">
+                We will input your responses into our patented, world-leading
+                algorithm, an AI-driven "supercomputer," that utilizes our 10
+                years of scientific data to formulate your personalized
+                recommendations.
+              </div>
+              <button className="bg-[#098FE0] p-4 text-xl font-normal text-white rounded-lg w-44 mt-10">
+                Begin
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : quizResults ? (
         introSection ? (
           <div className="w-full max-w-4xl">
             <div className="rounded-lg bg-white lg:px-2 lg:py-3 lg:shadow">
               <div className="relative min-h-[500px] min-w-[300px] overflow-hidden rounded border-shuttle-gray-100 bg-lightbg lg:border lg:border-dashed lg:p-2">
                 <div
                   onClick={() => setIntroSection(false)}
-                  className="mb-6 text-center px-16 flex flex-col justify-center items-center"
+                  className="mb-6 text-center px-5 md:px-16 flex flex-col justify-center items-center"
                 >
                   <img
                     src={Logo.src}
-                    className="w-auto max-w-[100%] h-8 mt-10"
+                    className="w-auto max-w-[100%] md:h-8 h-5 mt-5 md:mt-10"
                     height={120}
                     width={736}
                     alt="smart blend"
                   />
-                  <h1 className="mt-16 text-2xl font-bold">
+                  <h1 className="mt-5 md:mt-16 text-lg md:text-2xl font-bold">
                     Investeer 5 minuten in je gezondheid en kom achter jouw
                     persoonlijke vitaminebehoefte!
                   </h1>
