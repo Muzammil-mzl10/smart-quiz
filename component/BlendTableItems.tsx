@@ -680,13 +680,13 @@ const BlendTab = ({ answers, computations, name }: any) => {
             )}
           </div>
         </div>
-        <div className="flex w-full h-44 px-[10%] items-center bg-[#F3FCFB] justify-around">
+        <div className="flex w-full h-48 px-[10%] items-center bg-[#F3FCFB] justify-around">
           <div className="text-center py-5 flex flex-col justify-center items-center">
             <img src="/3.svg" className="h-12 w-12 mb-2" />
-            <div className="text-xl">
+            <div className="text-lg">
               Stop met gokken <span className="opacity-50">welke</span>
             </div>
-            <div className="w-64 opacity-50">
+            <div className="w-80 text-lg opacity-50">
               standaardsupplementen te nemen; geen enkele is specifiek afgestemd
               op jouw behoeften.
             </div>
@@ -697,7 +697,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
               Maak weloverwogen
               <br />
               gezondheidskeuzes
-              <span className=" w-80 ml-2 opacity-50">
+              <span className="text-lg w-80 ml-2 opacity-50">
                 op basis van je eigen bloedwaarden.
               </span>
               {/* <span className="opacity-50">welke</span> */}
@@ -705,11 +705,11 @@ const BlendTab = ({ answers, computations, name }: any) => {
           </div>
           <div className="text-center py-5 flex flex-col justify-center items-center">
             <img src="/1.svg" className="h-12 w-12 mb-2" />
-            <div className="text-xl">
+            <div className="text-lg">
               Voorkom nare bijwerkingen{" "}
               <span className="opacity-50">door het</span>
             </div>
-            <div className="w-64 opacity-50">
+            <div className="text-lg w-64 opacity-50">
               over doseren van standaardsupplementen.
             </div>
           </div>
