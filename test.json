@@ -1,0 +1,210 @@
+[
+  {
+    "questionId": "gender",
+    "answer": "Man"
+  },
+  {
+    "questionId": "dateOfBirth",
+    "answer": "1954-07-17T19:00:00.000Z"
+  },
+  {
+    "questionId": "weight",
+    "answer": "75 kg"
+  },
+  {
+    "questionId": "height",
+    "answer": "175 cm"
+  },
+  {
+    "questionId": "heightFeet",
+    "answer": ""
+  },
+  {
+    "questionId": "heightInches",
+    "answer": ""
+  },
+  {
+    "questionId": "Q07",
+    "answer": "Kan beter."
+  },
+  {
+    "questionId": "Q08",
+    "answer": "Na maaltijden"
+  },
+  {
+    "questionId": "Q09",
+    "answer": "Regelmatig gestrest"
+  },
+  {
+    "questionId": "Q10",
+    "answer": "Kan beter"
+  },
+  {
+    "questionId": "QX1",
+    "answer": "Licht actief"
+  },
+  {
+    "questionId": "Q11",
+    "answer": "5+ keer per week"
+  },
+  {
+    "questionId": "Q12",
+    "answer": ["Gewichtheffen", "Duursporten"]
+  },
+  {
+    "questionId": "Q13",
+    "answer": ["Prestaties verbeteren", "Herstel optimaliseren"]
+  },
+  {
+    "questionId": "QX2",
+    "answer": "Nee"
+  },
+  {
+    "questionId": "Q14",
+    "answer": "Geen van deze"
+  },
+  {
+    "questionId": "Q15",
+    "answer": "Eén"
+  },
+  {
+    "questionId": "Q16",
+    "answer": "Zelden"
+  },
+  {
+    "questionId": "Q17",
+    "answer": "200-300 gram"
+  },
+  {
+    "questionId": "Q18",
+    "answer": ["Groene bladgroenten", "Uien, knoflook, bosuien, prei"]
+  },
+  {
+    "questionId": "Q19",
+    "answer": "Gekookt"
+  },
+  {
+    "questionId": "Q20",
+    "answer": "Zelden"
+  },
+  {
+    "questionId": "Q21",
+    "answer": ["Haver", "Volkorenbrood"]
+  },
+  {
+    "questionId": "Q22",
+    "answer": "5 keer of meer"
+  },
+  {
+    "questionId": "Q23",
+    "answer": ["Kip", "Rundvlees"]
+  },
+  {
+    "questionId": "Q24",
+    "answer": "5 keer of meer"
+  },
+  {
+    "questionId": "Q25",
+    "answer": "Nooit"
+  },
+  {
+    "questionId": "Q26",
+    "answer": "Nooit"
+  },
+  {
+    "questionId": "Q27",
+    "answer": "Meer dan 12 glazen per week of regelmatig meer dan 6 glazen op een dag"
+  },
+  {
+    "questionId": "Q28",
+    "answer": "3-4"
+  },
+  {
+    "questionId": "Q29",
+    "answer": "1-3"
+  },
+  {
+    "questionId": "Q32",
+    "answer": "Nooit"
+  },
+  {
+    "questionId": "QX3",
+    "answer": "Nooit"
+  },
+  {
+    "questionId": "Q33",
+    "answer": "Licht tot medium"
+  },
+  {
+    "questionId": "Q34",
+    "answer": "Niet of nauwelijks"
+  },
+  {
+    "questionId": "Q35",
+    "answer": "Veel"
+  },
+  {
+    "questionId": "Q36",
+    "answer": "Meer dan 8 uur per dag"
+  },
+  {
+    "questionId": "Q37",
+    "answer": "Nee"
+  },
+  {
+    "questionId": "Q38",
+    "answer": "Ja"
+  },
+  {
+    "questionId": "Q39",
+    "answer": "Ja, maar alleen bij erg warm weer of tijdens het sporten"
+  },
+  {
+    "questionId": "Q40",
+    "answer": "Relatief vaak en/of lang ziek"
+  },
+  {
+    "questionId": "Q41",
+    "answer": "Geen"
+  },
+  {
+    "questionId": "Q42",
+    "answer": "Ja"
+  },
+  {
+    "questionId": "Q43",
+    "answer": "Nee"
+  },
+  {
+    "questionId": "Q44",
+    "answer": "Nee"
+  },
+  {
+    "questionId": "Q46",
+    "answer": ["Energie"]
+  },
+  {
+    "questionId": "Q47",
+    "answer": ["Geen allergieën"]
+  },
+  {
+    "questionId": "Q48",
+    "answer": ["Geen medicijnen"]
+  },
+  {
+    "questionId": "Q53",
+    "answer": ["Geen van deze"]
+  },
+  {
+    "questionId": "Q54",
+    "answer": ["Broze of zwakke nagels"]
+  },
+  {
+    "questionId": "Q55",
+    "answer": ["Geen van deze"]
+  },
+  {
+    "questionId": "Q56",
+    "answer": ""
+  }
+]

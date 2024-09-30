@@ -12,7 +12,7 @@ import "react-calendar/dist/Calendar.css";
 import Logo from "@/public/smartblend-logo.png";
 import { Switch } from "@headlessui/react";
 import Cookies from "js-cookie";
-import { MessageCircleQuestion } from "lucide-react";
+import { Blend, MessageCircleQuestion } from "lucide-react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
 import { Controller, useForm } from "react-hook-form";
@@ -23,10 +23,13 @@ import { cn } from "../component/cn";
 
 import { questions } from "../component/questionaire";
 import UniqueSmartBlend from "../component/UniqueSmartblend";
+import useComputation from "@/hooks/useComputation";
+import BlendTab from "@/component/BlendTableItems";
 
 const LifestyleQuestionnaire = () => {
   const [quizResults, setQuizResults] = useState(true);
   const [introSection, setIntroSection] = useState(true);
+  const [processedAnswers, setProcessedAnswers] = useState<any>(null); // Use this to store processed data
   const { register, handleSubmit, control, watch, setValue, getValues, reset } =
     useForm({
       defaultValues: {
@@ -37,7 +40,7 @@ const LifestyleQuestionnaire = () => {
         height: "",
         heightFeet: "",
         heightInches: "",
-        email:"",
+        email: "",
         Q07: null,
         Q08: null,
         Q09: null,
@@ -110,7 +113,7 @@ const LifestyleQuestionnaire = () => {
     Q40: [1],
   });
   const [formData, setFormData] = useState<any>(getValues());
- console.log(getValues());
+ 
   useEffect(() => {
     const values = getValues();
     setFormData(values);
@@ -190,78 +193,91 @@ const LifestyleQuestionnaire = () => {
     }
     return false;
   };
-  console.log(getValues().name);
+ 
 
+   const {
+     data: computationData,
+     isLoading,
+     error,
+   } = useComputation(processedAnswers);
+ console.log(processedAnswers)
+  console.log(computationData);
+  
   const onSubmit = async (data: any) => {
-    const updatedData = { ...data };
-
-    // Convert weight to kg if it's in lbs and add the unit
-    if (weightUnit) {
-      updatedData.weight = `${(data.weight / 2.20462).toFixed(2)} kg`;
-    } else {
-      updatedData.weight = `${data.weight} kg`;
-    }
-
-    // Convert height to cm if it's in ft/in and add the unit, otherwise keep it in cm
-    if (heightUnit) {
-      const totalInches =
-        parseInt(data.heightFeet, 10) * 12 + parseInt(data.heightInches, 10);
-      updatedData.height = `${(totalInches * 2.54).toFixed(2)} cm`;
-    } else {
-      updatedData.height = `${data.height} cm`;
-    }
-
-    // Filter out unnecessary fields and format answers for API
-    const formattedData = {
-      name: getValues().name, // Include name in the payload
-      email: updatedData.email, // Include email in the payload
-      answers: Object.keys(updatedData)
-        .filter(
-          (key) =>
-            key !== "name" &&
-            key !== "email" &&
-            key !== "heightFeet" &&
-            key !== "heightInches" &&
-            key !== "weightUnit" &&
-            key !== "heightUnit"
-        )
-        .map((key) => ({
-          questionId: key,
-          answer: updatedData[key],
-        })),
-    };
-   console.log(formattedData);
     try {
-      // Submit data to API
+      const updatedData = { ...data };
+
+      // Process form data
+      if (weightUnit) {
+        updatedData.weight = `${(data.weight / 2.20462).toFixed(2)} kg`;
+      } else {
+        updatedData.weight = `${data.weight} kg`;
+      }
+
+      if (heightUnit) {
+        const totalInches =
+          parseInt(data.heightFeet, 10) * 12 + parseInt(data.heightInches, 10);
+        updatedData.height = `${(totalInches * 2.54).toFixed(2)} cm`;
+      } else {
+        updatedData.height = `${data.height} cm`;
+      }
+
+      // Prepare formatted data
+      const formattedData = {
+        name: getValues().name,
+        email: updatedData.email,
+        answers: Object.keys(updatedData)
+          .filter((key) => key !== "name" && key !== "email")
+          .map((key) => ({
+            questionId: key,
+            answer: updatedData[key],
+          })),
+      };
+
+      // Submit the quiz to the server
+      const token = Cookies.get("authToken"); // Get the token from cookies
+      const headers = {
+        "Content-Type": "application/json",
+      } as any
+
+      // Only add the Authorization header if the token is defined
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/quizzes`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("authToken")}`,
-          },
+          headers: headers,
           body: JSON.stringify(formattedData),
         }
       );
-      console.log(res)
+    console.log("response: ", res)
       if (res.ok) {
+        // If submission is successful, save the form data to state and trigger the computation
+        setProcessedAnswers(formattedData.answers);
         setQuizResults(false);
-        // const responseData = await res.json();
-        // console.log("Submission success:", responseData);
-        toast.success("Submission successful!"); // Show success message
-        // router.push('/questionnaire');
+        toast.success("Submission successful!");
+        console.log("success")
       } else {
         const errorData = await res.json();
         console.error("Submission error:", errorData);
-        toast.error("Submission failed! Please try again."); // Show error message
+        toast.error("Submission failed! Please try again.");
+        console.log("failed")
       }
     } catch (error) {
       console.error("Submission error:", error);
-      toast.error("Submission failed! Please try again."); // Show error message
+      toast.error("Submission failed! Please try again.");
     }
   };
 
+  // Handle the computation results once available
+  useEffect(() => {
+    if (computationData) {
+      console.log("Computation Data:", computationData);
+    }
+  }, [computationData]);
 
   const goToNextStep = () => {
     const allQuestions = renderQuestions();
@@ -311,7 +327,6 @@ const LifestyleQuestionnaire = () => {
   //   });
   // };
 
-  
   const renderRangeQuestion = (question: any) => {
     return (
       <div className="flex w-full justify-center space-y-4">
@@ -323,7 +338,7 @@ const LifestyleQuestionnaire = () => {
               min={1}
               max={4}
               direction={Direction.Up}
-              onChange={(values:any) => {
+              onChange={(values: any) => {
                 setRangeValues((prev: any) => ({
                   ...prev,
                   [question.id]: values,
@@ -399,10 +414,10 @@ const LifestyleQuestionnaire = () => {
     if (question.type === "single-select") {
       return question.options.map((option: any, index: any) => (
         <label
-        key={index}
+          key={index}
           htmlFor={`${question.id}-${index}`}
           className="flex cursor-pointer items-center gap-2 rounded-lg border bg-white p-4 hover:bg-froly-50"
-          >
+        >
           <input
             id={`${question.id}-${index}`}
             type="radio"
@@ -410,7 +425,7 @@ const LifestyleQuestionnaire = () => {
             {...register(question.id)}
             onChange={() => handleSingleSelect(question.id, option)}
             className="size-4 border-shuttle-gray-300 text-malibu-300 focus:ring-malibu-300"
-            />
+          />
           <span className="text-sm font-medium text-shuttle-gray-900">
             {option}
           </span>
@@ -442,7 +457,7 @@ const LifestyleQuestionnaire = () => {
     if (question.type === "range") {
       return <div className="col-span-2">{renderRangeQuestion(question)}</div>;
     }
-    
+
     if (question.type === "textarea") {
       return (
         <div className="col-span-2">
@@ -459,10 +474,9 @@ const LifestyleQuestionnaire = () => {
     return null;
   };
 
- 
   const renderStep = () => {
     const allQuestions = renderQuestions();
-    
+
     switch (currentStep) {
       case 0:
         return (
@@ -482,8 +496,8 @@ const LifestyleQuestionnaire = () => {
                 <MessageCircleQuestion /> Waarom we dit vragen?
               </div>
               <p className="mx-auto mt-2 max-w-xl px-3 text-center text-sm">
-                Het is belangrijk dat we jouw naam hebben voor een persoonlijk
-                en op maat gemaakt advies.
+                We komen graag je naam te weten om zo de test en uitslag te
+                personaliseren.
               </p>
             </div>
           </div>
@@ -498,7 +512,7 @@ const LifestyleQuestionnaire = () => {
               <label
                 className={`flex cursor-pointer flex-col items-center ${
                   selectedGender === "Man"
-                  ? "rounded-lg border-4 border-malibu-300"
+                    ? "rounded-lg border-4 border-malibu-300"
                     : "border-4 border-transparent"
                 }`}
               >
@@ -507,7 +521,7 @@ const LifestyleQuestionnaire = () => {
                   value="Man"
                   {...register("gender")}
                   className="hidden"
-                  />
+                />
                 <img
                   src="/assets/images/man.webp"
                   alt="Man"
@@ -562,7 +576,7 @@ const LifestyleQuestionnaire = () => {
                   render={({ field }: any) => (
                     <DatePicker
                       value={field.value}
-                      onChange={(date :any) => field.onChange(date)}
+                      onChange={(date: any) => field.onChange(date)}
                       className="block w-full rounded-3xl border-0 px-4 py-3 shadow-sm outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-malibu-300 sm:text-sm sm:leading-6"
                       format="dd/MM/yyyy"
                       monthPlaceholder="MM"
@@ -570,7 +584,7 @@ const LifestyleQuestionnaire = () => {
                       yearPlaceholder="YYYY"
                     />
                   )}
-                  />
+                />
               </div>
             </div>
 
@@ -596,7 +610,7 @@ const LifestyleQuestionnaire = () => {
               type="number"
               placeholder={weightUnit ? "Pounds" : "Kilogram"}
               className="mx-auto block w-full max-w-52 rounded-3xl border-0 px-4 py-3 shadow-sm outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-malibu-300 sm:text-sm sm:leading-6"
-              />
+            />
             <div className="mt-2 flex justify-center">
               <Switch
                 checked={weightUnit}
@@ -631,7 +645,7 @@ const LifestyleQuestionnaire = () => {
             </div>
           </div>
         );
-      case allQuestions.length+5 - 1:
+      case allQuestions.length + 5 - 1:
         return (
           <div className="flex min-h-96 flex-col space-y-4">
             <label className="mt-12 block text-center text-xl font-medium text-shuttle-gray-600">
@@ -650,9 +664,7 @@ const LifestyleQuestionnaire = () => {
                 <MessageCircleQuestion /> Waarom we dit vragen?
               </div>
               <p className="mx-auto mt-2 max-w-xl px-3 text-center text-sm">
-                Deze open vraag stelt je in staat om aanvullende informatie te
-                geven die relevant kan zijn voor je persoonlijk gezondheids- en
-                voedingsadvies.
+                We gebruiken je email om je testuitslag op te slaan voor later.
               </p>
             </div>
           </div>
@@ -780,12 +792,11 @@ const LifestyleQuestionnaire = () => {
         );
     }
   };
-  
 
   const allQuestions = renderQuestions();
   const progressPercentage =
     ((currentStep + 1) / (allQuestions.length + 5)) * 100; // Adjusted step count
- console.log(allQuestions);
+ 
   return (
     <div className="mt-4 flex items-center justify-center">
       {quizResults ? (
@@ -918,9 +929,18 @@ const LifestyleQuestionnaire = () => {
           </div>
         )
       ) : (
-        <div>
-          <UniqueSmartBlend />
-        </div>
+        computationData &&
+        processedAnswers && (
+          <div>
+            <BlendTab
+              name={getValues().name}
+              answers={processedAnswers}
+              computations={computationData}
+              // answersData={processedAnswers}
+            />
+            {/* <UniqueSmartBlend answersData={processedAnswers} /> */}
+          </div>
+        )
       )}
     </div>
   );

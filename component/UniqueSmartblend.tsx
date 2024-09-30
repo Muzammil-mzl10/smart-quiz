@@ -7,9 +7,7 @@ import React from "react";
 
 import BlendTableItems from "./BlendTableItems";
 
-const UniqueSmartBlend = () => {
-  
-
+const UniqueSmartBlend = ({ answersData }:any) => {
   return (
     <div className="mt-4 rounded-lg bg-white lg:px-2 lg:py-3 lg:shadow">
       <div className="relative overflow-hidden rounded border-shuttle-gray-100 bg-lightbg lg:border lg:border-dashed lg:p-2">
@@ -33,7 +31,7 @@ const UniqueSmartBlend = () => {
                 </p>
               </div>
             </div>
-            <BlendTableItems />
+            <BlendTableItems answersData={answersData} />
           </div>
         </dl>
       </div>
