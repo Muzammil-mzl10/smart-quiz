@@ -802,7 +802,7 @@ const LifestyleQuestionnaire = () => {
       className={
         startQuiz
           ? "flex items-center justify-center overflow-hidden"
-          : "mt-4 lex items-center justify-center"
+          : "mt-4 flex items-center justify-center"
       }
     >
       {startQuiz ? (
@@ -829,7 +829,7 @@ const LifestyleQuestionnaire = () => {
                 years of scientific data to formulate your personalized
                 recommendations.
               </div>
-              <button className="bg-[#098FE0] p-4 text-xl font-normal text-white rounded-lg w-44 mt-10">
+              <button onClick={()=> setStartQuiz(false)} className="bg-[#098FE0] p-4 text-xl font-normal text-white rounded-lg w-44 mt-10">
                 Begin
               </button>
             </div>
