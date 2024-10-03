@@ -28,7 +28,7 @@ import BlendTab from "@/component/BlendTableItems";
 
 const LifestyleQuestionnaire = () => {
   const [quizResults, setQuizResults] = useState(true);
-  const [startQuiz, setStartQuiz] = useState(true);
+  const [startQuiz, setStartQuiz] = useState(false);
   const [introSection, setIntroSection] = useState(true);
   const [processedAnswers, setProcessedAnswers] = useState<any>(null); // Use this to store processed data
   const { register, handleSubmit, control, watch, setValue, getValues, reset } =

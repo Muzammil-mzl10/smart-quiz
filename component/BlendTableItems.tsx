@@ -3,7 +3,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import AdditionalInfo from "./AdditionalInfo";
 import { Check, MoveRight, X } from "lucide-react";
@@ -471,27 +471,27 @@ const BlendTab = ({ answers, computations, name }: any) => {
   const blendData = [
     { productCode: "S01", data: S01Return, reasons: S01Return.reasons },
     // { productCode: "S02", data: S02Return, reasons: S02Return.reasons },
-    { productCode: "S03", data: S03Return, reasons: S03Return.reasons },
-    { productCode: "S04", data: S04Return, reasons: S04Return.reasons },
+    { productCode: "S24", data: S24Return, reasons: S24Return.reasons },
     { productCode: "S05", data: S05Return, reasons: S05Return.reasons },
-    { productCode: "S06", data: S06Return, reasons: S06Return.reasons },
     { productCode: "S07", data: S07Return, reasons: S07Return.reasons },
+    { productCode: "S30", data: S30Return, reasons: S30Return.reasons },
+    { productCode: "S32", data: S32Return, reasons: S32Return.reasons },
     { productCode: "S08", data: S08Return, reasons: S08Return.reasons },
-    { productCode: "S09", data: S09Return, reasons: S09Return.reasons },
-    { productCode: "S10", data: S10Return, reasons: S10Return.reasons },
-    { productCode: "S11", data: S11Return, reasons: S11Return.reasons },
-    { productCode: "S12", data: S12Return, reasons: S12Return.reasons },
-    { productCode: "S13", data: S13Return, reasons: S13Return.reasons },
     { productCode: "S15", data: S15Return, reasons: S15Return.reasons },
-    { productCode: "S16", data: S16Return, reasons: S16Return.reasons },
+    { productCode: "S11", data: S11Return, reasons: S11Return.reasons },
+    { productCode: "S33", data: S33Return, reasons: S33Return.reasons },
     { productCode: "S17", data: S17Return, reasons: S17Return.reasons },
     { productCode: "S20", data: S20Return, reasons: S20Return.reasons },
-    { productCode: "S24", data: S24Return, reasons: S24Return.reasons },
+    { productCode: "S09", data: S09Return, reasons: S09Return.reasons },
     { productCode: "S26", data: S26Return, reasons: S26Return.reasons },
-    { productCode: "S30", data: S30Return, reasons: S30Return.reasons },
+    { productCode: "S12", data: S12Return, reasons: S12Return.reasons },
+    { productCode: "S16", data: S16Return, reasons: S16Return.reasons },
+    { productCode: "S13", data: S13Return, reasons: S13Return.reasons },
     { productCode: "S31", data: S31Return, reasons: S31Return.reasons },
-    { productCode: "S32", data: S32Return, reasons: S32Return.reasons },
-    { productCode: "S33", data: S33Return, reasons: S33Return.reasons },
+    { productCode: "S10", data: S10Return, reasons: S10Return.reasons },
+    { productCode: "S04", data: S04Return, reasons: S04Return.reasons },
+    { productCode: "S03", data: S03Return, reasons: S03Return.reasons },
+    { productCode: "S06", data: S06Return, reasons: S06Return.reasons },
   ];
 
   // console.log(selectedProducts)
@@ -567,6 +567,41 @@ const BlendTab = ({ answers, computations, name }: any) => {
   };
 
   console.log(tableData);
+  const [updatedTable, setUpdatedTable] = useState() as any;
+
+  useEffect(() => {
+    if (tableData) {
+      let totalDose = 0;
+      let addedDose = [] as any;
+
+      // Filter out items where value formatted to quantity equals "0"
+      const filteredTableData = tableData.filter(
+        (item) => formatQuantity(item.value) !== "0"
+      );
+
+      filteredTableData.forEach((data) => {
+        const currentDose = parseFloat(data.value);
+
+        if (totalDose + currentDose <= 3000) {
+          // Add the full dose if it doesn't exceed the limit
+          totalDose += currentDose;
+          addedDose.push({ ...data, value: currentDose });
+        } else {
+          // If adding the full dose exceeds the limit, adjust to reach 3000mg
+          const remainingDose = 3000 - totalDose;
+          if (remainingDose > 0) {
+            totalDose = 3000;
+            addedDose.push({ ...data, value: remainingDose.toFixed(4) });
+          }
+        }
+      });
+
+      console.log(totalDose);
+      console.log(addedDose);
+      setUpdatedTable(addedDose);
+    }
+  }, [tableData]);
+
   return (
     <div className="w-full h-auto">
       <div className="from-[#DDF3F7] to-[#6EC8ED] bg-gradient-to-b h-[65vh]">
@@ -610,7 +645,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                 style={{ justifyContent: "flex-start", display: "flex" }}
                 className="z-10 w-28 truncate items-start justify-start text-[1rem] top-[67.5%] left-[38.5%] text-white absolute"
               >
-                {name}  
+                {name}
               </div>
             </div>
           </div>
@@ -652,11 +687,11 @@ const BlendTab = ({ answers, computations, name }: any) => {
                           </tr>
                         </thead>
                         <tbody>
-                          {tableData.map((item: any, idx) =>
-                            formatQuantity(item.value) == "0" ? null : (
+                          {updatedTable &&
+                            updatedTable.map((item: any, idx: any) => (
                               <tr
                                 key={idx}
-                                onClick={() => openModal(item)}
+                                // onClick={() => openModal(item)}
                                 className="cursor-pointer hover:bg-malibu-50"
                               >
                                 <td className="border-b border-gray-300 px-4 py-2 text-xs lg:text-sm">
@@ -669,8 +704,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                                   {item.riPercentage}
                                 </td>
                               </tr>
-                            )
-                          )}
+                            ))}
                         </tbody>
                       </table>
                     </Scrollbars>
@@ -725,7 +759,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
             />
             <div className="flex space-y-10  w-[35vw] flex-col justify-start items-start">
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
-                <img src="./Checkmarkicon-smartblendblue.png" className="w-10 h-10" />
+                <img
+                  src="./Checkmarkicon-smartblendblue.png"
+                  className="w-10 h-10"
+                />
                 <div className="flex flex-col justify-start items-start">
                   <div className="font-bold">Echt Gepersonaliseerd</div>
                   <div className="font-light">
@@ -735,7 +772,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
                 </div>
               </div>
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
-                <img src="./Checkmarkicon-smartblendblue.png" className="w-10 h-10" />
+                <img
+                  src="./Checkmarkicon-smartblendblue.png"
+                  className="w-10 h-10"
+                />
                 <div className="flex flex-col justify-start items-start">
                   <div className="font-bold">Wetenschappelijk Onderbouwd</div>
                   <div className="font-light">
@@ -745,7 +785,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
                 </div>
               </div>
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
-                <img src="./Checkmarkicon-smartblendblue.png" className="w-10 h-10" />
+                <img
+                  src="./Checkmarkicon-smartblendblue.png"
+                  className="w-10 h-10"
+                />
                 <div className="flex flex-col justify-start items-start">
                   <div className="font-bold">
                     Tot 50 Verschillende Voedingsstoffen in Jouw Formule
@@ -779,7 +822,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                           justifyContent: "flex-start",
                           display: "flex",
                         }}
-                        className="absolute w-28 truncate bottom-[53px] left-[32px] text-white"
+                        className="absolute w-28 truncate bottom-[62px] left-[38px] text-white"
                       >
                         {name}
                       </div>
