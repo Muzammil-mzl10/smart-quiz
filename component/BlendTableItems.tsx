@@ -605,17 +605,17 @@ const BlendTab = ({ answers, computations, name }: any) => {
   return (
     <div className="w-full h-auto">
       <div className="from-[#DDF3F7] to-[#6EC8ED] bg-gradient-to-b h-[65vh]">
-        <div className="flex w-auto -space-x-56 mb-5 pt-5 items-start justify-around">
-          <div className="w-[50vw] mt-14 flex space-y-5 justify-center items-center flex-col text-center">
-            <div className="text-3xl w-[30vw] font-bold">
+        <div className="flex md:flex-row flex-col w-auto space-x-0 md:-space-x-56 mb-5 pt-0 md:pt-5 items-start justify-around">
+          <div className="w-[100vw] md:w-[50vw] mt-14 flex space-y-5 justify-center items-center flex-col text-center">
+            <div className="md:text-3xl text-xl w-[80vw] md:w-[30vw] font-bold">
               Luuk de Jong, je persoonlijke supplement is berekend!
             </div>
-            <div className="text-lg w-[30vw]">
+            <div className="md:text-lg text-sm w-[80vw] md:w-[30vw]">
               1 tot 5 dagelijkse capsules met precies de stoffen die jouw
               lichaam nodig heeft.
             </div>
             <a
-              className="flex z-10 mt-10 justify-center items-center w-72 border-white border-2  rounded-3xl bg-gradient-to-r from-malibu-300 to-froly-400 px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gradient-to-r hover:from-froly-400 hover:to-malibu-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300"
+              className="flex z-10 mt-5 md:mt-10 justify-center items-center w-72 border-white border-2  rounded-3xl bg-gradient-to-r from-malibu-300 to-froly-400 px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gradient-to-r hover:from-froly-400 hover:to-malibu-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300"
               href="#"
             >
               Bestel Nu
@@ -639,18 +639,18 @@ const BlendTab = ({ answers, computations, name }: any) => {
               <img
                 src="/mockup-packaging.png"
                 style={{ marginTop: "-117px" }}
-                className=" w-[34rem] h-[34rem]"
+                className=" md:w-[34rem] w-[25rem] h-[30rem] md:h-[34rem]"
               />
               <div
                 style={{ justifyContent: "flex-start", display: "flex" }}
-                className="z-10 w-28 truncate items-start justify-start text-[1rem] top-[67.5%] left-[38.5%] text-white absolute"
+                className="z-10 w-28 truncate items-start justify-start text-xs md:text-[1rem] top-[67.5%] left-[38.5%] text-white absolute"
               >
                 {name}
               </div>
             </div>
           </div>
 
-          <div className="w-[35vw]">
+          <div className="w-[100vw] md:mt-0 -mt-16 md:w-[35vw]">
             {tableData.length > 0 && (
               <div className="mt-4 flex w-full flex-col items-center gap-3 rounded-lg">
                 <div className="w-full max-w-2xl rounded-3xl bg-gradient-to-b from-white to-[#78c1f3] p-2">
@@ -714,7 +714,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
             )}
           </div>
         </div>
-        <div className="flex w-full h-48 px-[10%] items-center bg-[#F3FCFB] justify-around">
+        <div className="flex md:flex-row flex-col w-full h-[40rem] md:h-48 px-6 md:px-[10%] items-center bg-[#F3FCFB] justify-center md:justify-around">
           <div className="text-center py-5 flex flex-col justify-center items-center">
             <img src="/3.svg" className="h-12 w-12 mb-2" />
             <div className="text-lg">
@@ -752,12 +752,12 @@ const BlendTab = ({ answers, computations, name }: any) => {
           <div className="text-center text-5xl font-bold">
             Waarom Smartblend?
           </div>
-          <div className="flex justify-around items-center mt-10 space-x-10">
+          <div className="flex justify-center md:justify-around items-center mt-10 space-x-0 md:space-x-10">
             <img
               src="./coverimage.png"
-              className="w-[30vw] shadow-lg shadow-gray-400 rounded-3xl"
+              className="w-[30vw] hidden md:block shadow-lg shadow-gray-400 rounded-3xl"
             />
-            <div className="flex space-y-10  w-[35vw] flex-col justify-start items-start">
+            <div className="flex space-y-10 w-[80vw] md:w-[35vw] flex-col justify-start items-start">
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
                 <img
                   src="./Checkmarkicon-smartblendblue.png"
@@ -805,7 +805,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
         </div>
         <div className="w-full pb-10 flex justify-center items-center">
           <div className="w-[90vw] flex justify-center items-center">
-            <div className="relative w-[68vw] rounded-3xl flex max-h-screen bg-gradient-to-b from-malibu-100 to-malibu-200 p-6 shadow-lg lg:max-h-[720px]">
+            <div className="relative w-[80vw] md:w-[68vw] rounded-3xl flex max-h-screen bg-gradient-to-b from-malibu-100 to-malibu-200 p-6 shadow-lg lg:max-h-[720px]">
               <div className="flex size-full justify-center">
                 <div className="flex w-full flex-col items-center justify-center overflow-y-auto lg:flex-row">
                   <div className="hidden w-full flex-col items-center justify-center lg:flex">

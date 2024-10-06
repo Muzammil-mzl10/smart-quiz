@@ -35,13 +35,13 @@ const RadioButton = ({
               selectedValue === value ? "bg-malibu-300" : "bg-gray-300"
             } rounded-full`}
           />
-          <h2 className="text-lg font-semibold">{title}</h2>
+          <h2 className="md:text-lg text-xs font-semibold">{title}</h2>
         </div>
         <span className="ml-4 text-2xl font-semibold text-malibu-300">
           €{price}
         </span>
       </div>
-      <ul className="mt-2 list-inside list-disc pl-1">
+      <ul className="mt-2 list-inside list-disc text-[0.5rem] md:text-lg p-0 md:pl-1">
         {descriptions.map((description: any, index: number) => (
           <li key={index}>{description}</li>
         ))}

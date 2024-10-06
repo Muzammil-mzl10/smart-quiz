@@ -246,7 +246,7 @@ const LifestyleQuestionnaire = () => {
       }
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/quizzes`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/quizes`,
         {
           method: "POST",
           headers: headers,

@@ -688,7 +688,7 @@ export const vitaminDSupplementRecommendations: any = [
     questionnaireId: "Q33",
     supplementId: "S01",
     condition: (answers: any, _computations: any, _profile: any) =>
-      answers.Q33 === "Medium tot olijfkleurig", // Option 3
+      answers.Q33 === "Medium tot olijfkleurig",
     recommendedDose: (_answers: any, _computations: any, _profile: any) => {
       return 30; // Plus 30mcg
     },
