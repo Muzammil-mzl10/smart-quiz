@@ -761,7 +761,7 @@ export const omega3SupplementRecommendations: any = [
 
       _computations: any,
       profile: any
-    ) => profile?.age > 65,
+    ) => profile.age > 65,
     recommendedDose: () => 2,
     reason:
       "Extra Omega 3 is toegevoegd, passend bij de ondersteuning van hartgezondheid naarmate je ouder wordt.",
@@ -916,8 +916,9 @@ export const vitaminCSupplementRecommendations: any = [
         ? answers.Q18.filter((option: string) => veggieChoices.includes(option))
             .length
         : 0;
+      // console.log(computations)
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
 
       return (
         (8 - fruitConsumptionIndex - veggieConsumptionCount) *
@@ -981,7 +982,7 @@ export const magnesiumSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q14 === "Carnivoor",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return multiplier;
     },
     reason:
@@ -1001,9 +1002,9 @@ export const magnesiumSupplementRecommendations: any = [
       const Q21Value = answers.Q21 ? answers.Q21.length : 0;
       const Q18Value = answers.Q18.includes("Groene bladgroenten") ? 1 : 0;
       const Q26Value = answers.Q26 === "Twee keer of vaker per week" ? 0.5 : 0;
-      console.log(computations);
+      // console.log(computations);
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       const doseMultiplier =
         (7.5 - Q21Value - Q18Value - Q26Value) * 0.133 * multiplier;
       return doseMultiplier;
@@ -1037,7 +1038,7 @@ export const magnesiumSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q13.includes("Kramp verminderen"),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return multiplier;
     },
     reason: "Je hebt aangegeven regelmatig last te hebben van kramp.",
@@ -1058,7 +1059,7 @@ export const magnesiumSupplementRecommendations: any = [
     questionnaireId: "Q52",
     supplementId: "S04",
     condition: (answers: any, _computations: any, profile: any) =>
-      profile?.gender === "Vrouw" && answers.Q52.includes("Redelijk"),
+      profile.gender === "Vrouw" && answers.Q52 == "Redelijk",
     recommendedDose: () => 0.75,
     reason: "Je hebt aangegeven PMS symptomen te ervaren.",
   },
@@ -1067,7 +1068,7 @@ export const magnesiumSupplementRecommendations: any = [
     questionnaireId: "Q52",
     supplementId: "S04",
     condition: (answers: any, _computations: any, profile: any) =>
-      profile?.gender === "Vrouw" && answers.Q52.includes("Ernstig"),
+      profile.gender === "Vrouw" && answers.Q52 == "Ernstig",
     recommendedDose: () => 1,
     reason: "Je hebt aangegeven ernstige PMS symptomen te ervaren.",
   },
@@ -1167,7 +1168,7 @@ export const ironSupplementRecommendations: any = [
         Q49Value;
 
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return totalScore * 0.1 * multiplier;
     },
     reason: "Je dieet lijkt niet genoeg ijzer te bevatten.",
@@ -1213,7 +1214,7 @@ export const calciumSupplementRecommendations: any = [
 
       const totalScore = 4 - Q20Value - Q18Value;
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return totalScore * 0.25 * multiplier;
     },
     reason:
@@ -1224,7 +1225,7 @@ export const calciumSupplementRecommendations: any = [
     questionnaireId: "Q03",
     supplementId: "S06",
     condition: (_answers: any, _computations: any, profile: any) =>
-      profile?.age > 70,
+      profile.age > 70,
     recommendedDose: (_answers: any, _computations: any) => {
       return 0.66;
     },
@@ -1288,7 +1289,7 @@ export const calciumSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q41.includes("Botblessure"),
     recommendedDose: (_answers: any, computations: any) => {
       const standardDose = 1000; // Assuming 1000mg as the standard dose for Calcium
-      return (standardDose * computations?.C10) / computations.C11;
+      return (standardDose * computations.C10) / computations.C11;
     },
     reason: "Je hebt aangegeven hulp te willen bij je botblessure.",
   },
@@ -1299,7 +1300,7 @@ export const calciumSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q54.includes("Broze of zwakke nagels"),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.8 * multiplier;
     },
     reason:
@@ -1312,7 +1313,7 @@ export const calciumSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q46.includes("Botgezondheid"),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return multiplier;
     },
     reason:
@@ -1403,7 +1404,7 @@ export const vitaminBSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q07 === "Altijd moe.",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.7 * multiplier;
     },
     reason: "Je hebt aangegeven constant moe te zijn.",
@@ -1415,7 +1416,7 @@ export const vitaminBSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q07 === "Kan beter.",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.3 * multiplier;
     },
     reason: "Je hebt vermeld dat je energieniveau verbetert zou kunnen worden",
@@ -1427,7 +1428,7 @@ export const vitaminBSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q08 === "'s ochtends",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.5 * multiplier;
     },
     reason: "Je ervaart energiedips in de ochtend.",
@@ -1439,7 +1440,7 @@ export const vitaminBSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q08 === "'s middags",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.5 * multiplier;
     },
     reason: "Je ervaart energiedips in de middag.",
@@ -1455,7 +1456,7 @@ export const vitaminBSupplementRecommendations: any = [
       answers.Q11 === "5+ keer per week",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.4 * multiplier;
     },
     reason:
@@ -1472,7 +1473,7 @@ export const vitaminBSupplementRecommendations: any = [
       answers.Q11 === "2-4 keer per week",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.2 * multiplier;
     },
     reason:
@@ -1485,7 +1486,7 @@ export const vitaminBSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q13.includes("Algehele gezondheid"),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.1 * multiplier;
     },
     reason:
@@ -1517,7 +1518,7 @@ export const vitaminBSupplementRecommendations: any = [
           "Gestoomd",
         ].indexOf(answers.Q19) + 1;
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       const totalScore =
         (10 - Q15Value - Q17Value - 0.5 * Q19Value) * 0.1 * 0.5 * multiplier;
 
@@ -1545,7 +1546,7 @@ export const vitaminBSupplementRecommendations: any = [
           "Gestoomd",
         ].indexOf(answers.Q19) + 1;
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       const totalScore =
         (10 - Q15Value - Q17Value - 0.5 * Q19Value) * 0.1 * multiplier;
 
@@ -1609,7 +1610,7 @@ export const vitaminBSupplementRecommendations: any = [
     condition: (answers: any) => answers.QX3 === "Af en toe",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.2 * multiplier;
     },
     reason:
@@ -1622,7 +1623,7 @@ export const vitaminBSupplementRecommendations: any = [
     condition: (answers: any) => answers.QX3 === "Vrij vaak",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.2 * multiplier;
     },
     reason:
@@ -1652,7 +1653,7 @@ export const vitaminBSupplementRecommendations: any = [
       (answers.Q07 === "Geweldig!" || answers.Q07 === "Goed."),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.5 * multiplier;
     },
     reason:
@@ -1761,7 +1762,7 @@ export const immuneSupportSupplementRecommendations: any = [
 
       _computations: any,
       profile: any
-    ) => profile?.age > 65,
+    ) => profile.age > 65,
     recommendedDose: (
       _answers: any,
 
@@ -2108,7 +2109,7 @@ export const hairSkinNailSupplementRecommendations: any = [
 
       _computations: any,
       profile: any
-    ) => answers.Q54.includes("Grote ribbels") && profile?.age < 35,
+    ) => answers.Q54.includes("Grote ribbels") && profile.age < 35,
     recommendedDose: (
       _answers: any,
 
@@ -2179,7 +2180,7 @@ export const athleteBlendSupplementRecommendations: any = [
 
       _computations: any,
       profile: any
-    ) => answers.Q13.includes("Spiergroei") && profile?.age > 40,
+    ) => answers.Q13.includes("Spiergroei") && profile.age > 40,
     recommendedDose: (
       _answers: any,
 
@@ -2351,7 +2352,7 @@ export const vitaminB12SupplementRecommendations: any = [
 
       _computations: any,
       profile: any
-    ) => profile?.age > 65,
+    ) => profile.age > 65,
     recommendedDose: (
       _answers: any,
 
@@ -2420,7 +2421,7 @@ export const zincSupplementRecommendations: any = [
       answers.Q11 === "5+ keer per week",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 1.6 * multiplier;
     },
     reason:
@@ -2435,7 +2436,7 @@ export const zincSupplementRecommendations: any = [
       answers.Q11 === "2-4 keer per week",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.8 * multiplier;
     },
     reason:
@@ -2572,7 +2573,7 @@ export const antioxidantBlendSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q14 === "Carnivoor",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.3 * multiplier;
     },
     reason:
@@ -2614,7 +2615,7 @@ export const antioxidantBlendSupplementRecommendations: any = [
     },
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       const score =
         10 -
         (answers.Q15
@@ -2658,7 +2659,7 @@ export const antioxidantBlendSupplementRecommendations: any = [
       answers.Q11 === "5+ keer per week",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.5 * multiplier;
     },
     reason:
@@ -2674,7 +2675,7 @@ export const antioxidantBlendSupplementRecommendations: any = [
       answers.Q11 === "2-4 keer per week",
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.25 * multiplier;
     },
     reason:
@@ -2690,7 +2691,7 @@ export const antioxidantBlendSupplementRecommendations: any = [
         answers.Q12.includes("Duursporten")),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.5 * multiplier;
     },
     reason:
@@ -2747,7 +2748,7 @@ export const antioxidantBlendSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q53.includes("Droog haar"),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.5 * multiplier;
     },
     reason: "Je hebt gemeld dat je droog haar hebt.",
@@ -2759,7 +2760,7 @@ export const antioxidantBlendSupplementRecommendations: any = [
     condition: (answers: any) => answers.Q54.includes("Langzame groei"),
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
-        answers.gender === "Man" ? computations?.C10 : computations.C11;
+        answers.gender === "Man" ? computations.C10 : computations.C11;
       return 0.5 * multiplier;
     },
     reason: "Je hebt gemeld dat je nagels langzaam groeien.",
@@ -2799,7 +2800,7 @@ export const folicAcidSupplementRecommendations: any = [
     recommendationId: "R196",
     questionnaireId: "Q03",
     supplementId: "S32",
-    condition: (answers: any) => answers.Q03 > "65",
+    condition: (answers: any) => answers.age > 65,
     recommendedDose: (_answers: any, _computations: any) => {
       return 1;
     },

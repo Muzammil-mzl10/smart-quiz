@@ -15,6 +15,7 @@ const fetchComputationData = async (answersData: any) => {
     const dateOfBirth = new Date(
       answers.find((a: any) => a.questionId === "dateOfBirth").answer
     );
+    console.log(dateOfBirth)
     const weight = parseFloat(
       answers
         .find((a: any) => a.questionId === "weight")

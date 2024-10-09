@@ -63,7 +63,7 @@ import useS31ProductOverview from "@/hooks/blend/useS31ProductOverview";
 import useS32ProductOverview from "@/hooks/blend/useS32ProductOverview";
 import useS33ProductOverview from "@/hooks/blend/useS33ProductOverview";
 import useComputation from "@/hooks/useComputation";
-import useProductOverviewStore from "@/hooks/useProductOverviewStore";
+// import useProductOverviewStore from "@/hooks/useProductOverviewStore";
 import dynamic from "next/dynamic";
 import PricingSelect from "./PricingSelect";
 const Scrollbars = dynamic(() => import("react-custom-scrollbars"), {
@@ -108,7 +108,8 @@ const accumulateProperties = (dataArr: any[]) => {
 };
 
 const BlendTab = ({ answers, computations, name }: any) => {
-  const { selectedProducts } = useProductOverviewStore();
+  console.log(answers)
+  // const { selectedProducts } = useProductOverviewStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log(answers);
   const profile = {
@@ -119,6 +120,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
         answers.find((a: any) => a.questionId === "dateOfBirth")?.answer
       ).getFullYear(),
   };
+  console.log(profile)
 
   const answersMap = answers.reduce((acc: any, curr: any) => {
     acc[curr.questionId] = curr.answer;
@@ -162,7 +164,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
   );
   magnesiumRecommendations.forEach((rec: any) => {
     const dose = computeDose(rec, answersMap);
-    console.log(`Dose for ${rec.recommendationId}:`, dose);
+    // console.log(`Dose for ${rec.recommendationId}:`, dose);
   });
 
   const ironRecommendations = getRecommendations(
@@ -286,7 +288,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S03.realWeightFactor,
   });
-  console.log(S03Return);
+  // console.log(S03Return);
 
   const S04Return = useS04ProductOverview({
     recommendations: magnesiumRecommendations,
@@ -499,7 +501,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
   //   .filter((item) => selectedProducts.includes(item.productCode))
   //   .map((item) => item.data);
 
-  console.log(blendData);
+  // console.log(blendData);
   const accumulatedData = accumulateProperties(blendData);
   console.log(accumulatedData);
   const calculateRI: any = (value: any, rdi: any) =>
@@ -525,7 +527,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     {}
   );
 
-  console.log(accumulatedValues);
+  // console.log(accumulatedValues);
 
   const tableData = Object.keys(accumulatedValues).map((key) => {
     let value = parseFloat(accumulatedData[key].value);
@@ -566,11 +568,11 @@ const BlendTab = ({ answers, computations, name }: any) => {
       .replace(/\.?0+$/, "");
   };
 
-  console.log(tableData);
+  // console.log(tableData);
   const [updatedTable, setUpdatedTable] = useState() as any;
 
   useEffect(() => {
-    if (tableData) {
+    if (tableData && !updatedTable) {
       let totalDose = 0;
       let addedDose = [] as any;
 
@@ -626,9 +628,9 @@ const BlendTab = ({ answers, computations, name }: any) => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-move-right ml-2 h-4"
               >
                 <path d="M18 8L22 12L18 16"></path>
