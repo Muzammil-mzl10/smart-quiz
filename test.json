@@ -1,7 +1,7 @@
 [
   {
     "questionId": "gender",
-    "answer": "Vrouw"
+    "answer": "Man"
   },
   {
     "questionId": "dateOfBirth",
@@ -125,7 +125,7 @@
   },
   {
     "questionId": "Q32",
-    "answer": "Nooit"
+    "answer": "Meer dan 10 sigaretten per dag"
   },
   {
     "questionId": "QX3",

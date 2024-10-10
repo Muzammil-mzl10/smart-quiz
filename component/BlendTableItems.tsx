@@ -186,6 +186,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     vitaminBSupplementRecommendations,
     "S08"
   );
+  console.log(vitaminBRecommendations);
 
   const antiStressRecommendations = getRecommendations(
     antiStressSupplementRecommendations,
@@ -334,6 +335,8 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S08.realWeightFactor,
   });
+
+  console.log(S08Return);
 
   const S09Return = useS09ProductOverview({
     recommendations: antiStressRecommendations,
@@ -495,7 +498,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     { productCode: "S03", data: S03Return, reasons: S03Return.reasons },
     { productCode: "S06", data: S06Return, reasons: S06Return.reasons },
   ];
-
+  console.log(blendData);
   // console.log(selectedProducts)
   // const filteredBlendData = blendData
   //   .filter((item) => selectedProducts.includes(item.productCode))
