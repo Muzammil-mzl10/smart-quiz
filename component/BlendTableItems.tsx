@@ -121,6 +121,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
       ).getFullYear(),
   };
   console.log(profile)
+  console.log(computations)
 
   const answersMap = answers.reduce((acc: any, curr: any) => {
     acc[curr.questionId] = curr.answer;

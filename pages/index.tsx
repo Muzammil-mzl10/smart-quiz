@@ -971,7 +971,7 @@ const LifestyleQuestionnaire = () => {
             <BlendTab
               name={getValues().name}
               answers={processedAnswers}
-              computations={computationData}
+              computations={computationData.computations}
               // answersData={processedAnswers}
             />
             {/* <UniqueSmartBlend answersData={processedAnswers} /> */}
