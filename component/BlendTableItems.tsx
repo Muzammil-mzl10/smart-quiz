@@ -608,8 +608,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
     }
   }, [tableData]);
 
+  console.log(selectedItem);
+
   return (
-    <div className="w-full h-auto">
+    <div className="w-full relative h-auto">
       <div className="from-[#DDF3F7] to-[#6EC8ED] bg-gradient-to-b h-[65vh]">
         <div className="flex md:flex-row flex-col w-auto space-x-0 md:-space-x-56 mb-5 pt-0 md:pt-5 items-start justify-around">
           <div className="w-[100vw] md:w-[50vw] mt-14 flex space-y-5 justify-center items-center flex-col text-center">
@@ -697,7 +699,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                             updatedTable.map((item: any, idx: any) => (
                               <tr
                                 key={idx}
-                                // onClick={() => openModal(item)}
+                                onClick={() => openModal(item)}
                                 className="cursor-pointer hover:bg-malibu-50"
                               >
                                 <td className="border-b border-gray-300 px-4 py-2 text-xs lg:text-sm">
@@ -897,33 +899,33 @@ const BlendTab = ({ answers, computations, name }: any) => {
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           contentLabel="Element Details Modal"
-          className="modal max-h-screen w-full max-w-3xl overflow-auto"
+          className="modal absolute h-[25vh] shadow-lg shadow-white rounded-lg w-[50vw] left-[25%] top-64 z-10 bg-blue-400 overflow-hidden"
           overlayClassName="modal-overlay"
         >
           <button
             type="button"
             onClick={closeModal}
-            className="absolute right-4 top-4 flex size-6 cursor-pointer items-center justify-center rounded-full border-none bg-[#78c1f3] text-white hover:bg-[#f37783]"
+            className="absolute right-4 top-4 flex z-10 size-6 cursor-pointer items-center justify-center rounded-full border-none bg-[#78c1f3] text-white hover:bg-[#f37783]"
           >
             <X className="size-4" />
           </button>
           <div className="py-4 pl-4">
-            <h2 className="pb-4 text-xl font-bold text-shuttle-gray-600">
-              {selectedItem.element}
+            <h2 className="pb-8 mb-5 text-xl absolute font-bold text-black">
+              {selectedItem.readableName}
             </h2>
             <Scrollbars
               className="size-full"
-              style={{ height: 540, width: "100%" }}
+              style={{ height: 500, width: "100%" }}
             >
-              <div className="pr-4">
+              <div className="pr-4 pt-5">
                 <AdditionalInfo id={selectedItem.id} />
 
-                <h3 className="mt-4 text-base font-bold text-shuttle-gray-600">
-                  ingredientsTitle
+                <h3 className="mt-4 text-base font-bold text-black">
+                  Ingredients Title
                 </h3>
 
-                <div className="overflow-x-auto">
-                  <table className="mt-2 min-w-full divide-y divide-gray-200">
+                <div className="overflow-x-auto rounded-lg">
+                  <table className="mt-2  min-w-full divide-y divide-gray-200">
                     <thead>
                       <tr>
                         <th className="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-shuttle-gray-600">
@@ -940,13 +942,13 @@ const BlendTab = ({ answers, computations, name }: any) => {
                     <tbody className="divide-y divide-gray-200 bg-white">
                       <tr>
                         <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-shuttle-gray-600">
-                          {selectedItem.element}
+                          {selectedItem.nutrientID}
                         </td>
                         <td className="whitespace-nowrap px-6 py-4 text-sm text-shuttle-gray-600">
-                          {formatQuantity(selectedItem.quantity)} mg
+                          {formatQuantity(selectedItem.value)} mg
                         </td>
                         <td className="whitespace-nowrap px-6 py-4 text-sm text-shuttle-gray-600">
-                          {selectedItem.nrv}
+                          {selectedItem.riPercentage}
                         </td>
                       </tr>
                     </tbody>
