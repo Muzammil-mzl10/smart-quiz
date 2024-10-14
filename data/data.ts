@@ -916,10 +916,10 @@ export const vitaminCSupplementRecommendations: any = [
         ? answers.Q18.filter((option: string) => veggieChoices.includes(option))
             .length
         : 0;
-      // console.log(computations)
+
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier)
+
       return (
         (8 - fruitConsumptionIndex - veggieConsumptionCount) *
         0.0625 *
@@ -983,7 +983,7 @@ export const magnesiumSupplementRecommendations: any = [
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier)
+
       return multiplier;
     },
     reason:
@@ -1006,7 +1006,6 @@ export const magnesiumSupplementRecommendations: any = [
       // console.log(computations);
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       const doseMultiplier =
         (7.5 - Q21Value - Q18Value - Q26Value) * 0.133 * multiplier;
       return doseMultiplier;
@@ -1171,7 +1170,6 @@ export const ironSupplementRecommendations: any = [
 
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       return totalScore * 0.1 * multiplier;
     },
     reason: "Je dieet lijkt niet genoeg ijzer te bevatten.",
@@ -1218,7 +1216,6 @@ export const calciumSupplementRecommendations: any = [
       const totalScore = 4 - Q20Value - Q18Value;
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       return totalScore * 0.25 * multiplier;
     },
     reason:
@@ -1318,7 +1315,6 @@ export const calciumSupplementRecommendations: any = [
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       return multiplier;
     },
     reason:
@@ -1422,7 +1418,6 @@ export const vitaminBSupplementRecommendations: any = [
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       return 0.3 * multiplier;
     },
     reason: "Je hebt vermeld dat je energieniveau verbetert zou kunnen worden",
@@ -1525,7 +1520,6 @@ export const vitaminBSupplementRecommendations: any = [
         ].indexOf(answers.Q19) + 1;
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       const totalScore =
         (10 - Q15Value - Q17Value - 0.5 * Q19Value) * 0.1 * 0.5 * multiplier;
 
@@ -1600,11 +1594,7 @@ export const vitaminBSupplementRecommendations: any = [
     supplementId: "S08",
     condition: (answers: any) =>
       answers.Q32 === "Meer dan 10 sigaretten per dag",
-    recommendedDose: (
-      _answers: any,
-      _computations: any
-    ) => {
-      console.log("trigeered")
+    recommendedDose: (_answers: any, _computations: any) => {
       return 0.4;
     },
     reason:
@@ -1618,7 +1608,6 @@ export const vitaminBSupplementRecommendations: any = [
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       return 0.2 * multiplier;
     },
     reason:
@@ -1632,7 +1621,6 @@ export const vitaminBSupplementRecommendations: any = [
     recommendedDose: (answers: any, computations: any) => {
       const multiplier =
         answers.gender === "Man" ? computations.C10 : computations.C11;
-      console.log(multiplier);
       return 0.2 * multiplier;
     },
     reason:
@@ -2809,7 +2797,8 @@ export const folicAcidSupplementRecommendations: any = [
     recommendationId: "R196",
     questionnaireId: "Q03",
     supplementId: "S32",
-    condition: (answers: any) => answers.age > 65,
+    condition: (_answers: any, _computations: any, profile: any) =>
+      profile.age > 65,
     recommendedDose: (_answers: any, _computations: any) => {
       return 1;
     },

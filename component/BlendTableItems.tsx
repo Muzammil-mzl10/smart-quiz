@@ -62,7 +62,6 @@ import useS30ProductOverview from "@/hooks/blend/useS30ProductOverview";
 import useS31ProductOverview from "@/hooks/blend/useS31ProductOverview";
 import useS32ProductOverview from "@/hooks/blend/useS32ProductOverview";
 import useS33ProductOverview from "@/hooks/blend/useS33ProductOverview";
-import useComputation from "@/hooks/useComputation";
 // import useProductOverviewStore from "@/hooks/useProductOverviewStore";
 import dynamic from "next/dynamic";
 import PricingSelect from "./PricingSelect";
@@ -108,10 +107,10 @@ const accumulateProperties = (dataArr: any[]) => {
 };
 
 const BlendTab = ({ answers, computations, name }: any) => {
-  console.log(answers)
+ 
   // const { selectedProducts } = useProductOverviewStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(answers);
+  
   const profile = {
     gender: answers.find((a: any) => a.questionId === "gender")?.answer,
     age:
@@ -120,8 +119,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
         answers.find((a: any) => a.questionId === "dateOfBirth")?.answer
       ).getFullYear(),
   };
-  console.log(profile)
-  console.log(computations)
+
 
   const answersMap = answers.reduce((acc: any, curr: any) => {
     acc[curr.questionId] = curr.answer;
@@ -148,6 +146,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     vitaminDSupplementRecommendations,
     "S01"
   );
+  console.log(vitaminDRecommendations);
 
   const omega3Recommendations = getRecommendations(
     omega3SupplementRecommendations,
@@ -163,11 +162,8 @@ const BlendTab = ({ answers, computations, name }: any) => {
     magnesiumSupplementRecommendations,
     "S04"
   );
-  magnesiumRecommendations.forEach((rec: any) => {
-    const dose = computeDose(rec, answersMap);
-    // console.log(`Dose for ${rec.recommendationId}:`, dose);
-  });
-
+ 
+  
   const ironRecommendations = getRecommendations(
     ironSupplementRecommendations,
     "S05"
@@ -187,8 +183,8 @@ const BlendTab = ({ answers, computations, name }: any) => {
     vitaminBSupplementRecommendations,
     "S08"
   );
-  console.log(vitaminBRecommendations);
 
+  
   const antiStressRecommendations = getRecommendations(
     antiStressSupplementRecommendations,
     "S09"
@@ -264,6 +260,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     "S33"
   );
 
+
   const S01Return = useS01ProductOverview({
     recommendations: vitaminDRecommendations,
     supplement: supplements.S01,
@@ -272,6 +269,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S01.realWeightFactor,
   });
+  console.log(S01Return)
 
   const S02Return = useS02ProductOverview({
     recommendations: omega3Recommendations,
@@ -337,7 +335,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     realWeightFactor: supplements.S08.realWeightFactor,
   });
 
-  console.log(S08Return);
+
 
   const S09Return = useS09ProductOverview({
     recommendations: antiStressRecommendations,
@@ -464,6 +462,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S32.realWeightFactor,
   });
+ 
 
   const S33Return = useS33ProductOverview({
     recommendations: energyHerbsRecommendations,
@@ -507,7 +506,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
 
   // console.log(blendData);
   const accumulatedData = accumulateProperties(blendData);
-  console.log(accumulatedData);
   const calculateRI: any = (value: any, rdi: any) =>
     rdi ? ((value / rdi) * 100).toFixed(2) : "**";
 
@@ -531,7 +529,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     {}
   );
 
-  // console.log(accumulatedValues);
+  
 
   const tableData = Object.keys(accumulatedValues).map((key) => {
     let value = parseFloat(accumulatedData[key].value);
@@ -572,7 +570,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
       .replace(/\.?0+$/, "");
   };
 
-  // console.log(tableData);
+  
   const [updatedTable, setUpdatedTable] = useState() as any;
 
   useEffect(() => {
@@ -602,13 +600,11 @@ const BlendTab = ({ answers, computations, name }: any) => {
         }
       });
 
-      console.log(totalDose);
-      console.log(addedDose);
       setUpdatedTable(addedDose);
     }
   }, [tableData]);
 
-  console.log(selectedItem);
+ 
 
   return (
     <div className="w-full relative h-auto">
