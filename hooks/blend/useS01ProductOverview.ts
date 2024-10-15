@@ -20,6 +20,9 @@ const useS01ProductOverview = ({
 
   const computeTotalDose = useCallback(
     (recommendedDoseFn: any) => {
+      console.log(answersMap)
+      console.log(computationData)
+      console.log(profile)
       // Removed markersMap from argument list
       return recommendedDoseFn(answersMap, computationData, profile);
     },
@@ -51,61 +54,65 @@ const useS01ProductOverview = ({
     [realWeightFactor]
   );
 
-  const calculateTotalAmounts = useCallback(
-    (recommendations: any[], supplement: any) => {
-      let totalDoseCount = 0;
-      const totalIngredients: Record<string, number> = {};
-      const reasons: string[] = [];
+ const calculateTotalAmounts = useCallback(
+   (recommendations: any[], supplement: any) => {
+     let totalDoseCount = 0;
+     const totalIngredients: Record<string, number> = {};
+     const reasons: string[] = [];
 
-      recommendations.forEach((rec: any) => {
-        const totalDose = computeTotalDose(rec.recommendedDose);
-        totalDoseCount += parseFloat(totalDose);
-        reasons.push(rec.reason);
-      });
+     // Calculate total dose and reasons
+     recommendations.forEach((rec: any) => {
+       const totalDose = computeTotalDose(rec.recommendedDose);
+       totalDoseCount += parseFloat(totalDose);
+       reasons.push(rec.reason);
+     });
 
-      Object.keys(supplement.ingredients).forEach((ingredient, index) => {
-        const baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
+     // Calculate total ingredients based on recommendations and supplement's base amounts
+     Object.keys(supplement.ingredients).forEach((ingredient, index) => {
+       const baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
 
-        if (!totalIngredients[ingredient]) {
-          totalIngredients[ingredient] = 0;
-        }
+       if (!totalIngredients[ingredient]) {
+         totalIngredients[ingredient] = 0;
+       }
 
-        if (index === 0) {
-          totalIngredients[ingredient] = Math.min(
-            baseAmount + totalDoseCount,
-            75
-          );
-        } else {
-          totalIngredients[ingredient] += baseAmount + totalDoseCount;
-        }
-      });
+       if (ingredient === "vitaminD") {
+         totalIngredients[ingredient] = Math.min(
+           baseAmount + totalDoseCount,
+           75
+         );
+       } else if (ingredient === "vitaminK2") {
+         // Ensure Vitamin K2 is always 2x the amount of Vitamin D
+         totalIngredients[ingredient] = 2 * totalIngredients.vitaminD;
+       }
+     });
 
-      const { adjustedAmount, calculatedAmount } = calculateAmounts(
-        supplement,
-        totalDoseCount
-      );
+     const { adjustedAmount, calculatedAmount } = calculateAmounts(
+       supplement,
+       totalDoseCount
+     );
 
-      // Check for R185 recommendation
-      const hasR185 = recommendations.some(
-        (rec: any) => rec.recommendationId === "R185"
-      );
-      const finalAdjustedAmount = hasR185
-        ? 0
-        : parseFloat(adjustedAmount).toFixed(4);
-      const finalCalculatedAmount = hasR185
-        ? 0
-        : parseFloat(calculatedAmount).toFixed(4);
+     // Check for R185 recommendation
+     const hasR185 = recommendations.some(
+       (rec: any) => rec.recommendationId === "R185"
+     );
+     const finalAdjustedAmount = hasR185
+       ? 0
+       : parseFloat(adjustedAmount).toFixed(4);
+     const finalCalculatedAmount = hasR185
+       ? 0
+       : parseFloat(calculatedAmount).toFixed(4);
 
-      return {
-        adjustedAmount: finalAdjustedAmount,
-        calculatedAmount: finalCalculatedAmount,
-        vitaminD: hasR185 ? 0 : totalIngredients.vitaminD,
-        vitaminK2: hasR185 ? 0 : totalIngredients.vitaminK2,
-        reasons,
-      };
-    },
-    [computeTotalDose, computeIngredientAmount, calculateAmounts]
-  );
+     return {
+       adjustedAmount: finalAdjustedAmount,
+       calculatedAmount: finalCalculatedAmount,
+       vitaminD: hasR185 ? 0 : totalIngredients.vitaminD,
+       vitaminK2: hasR185 ? 0 : totalIngredients.vitaminK2,
+       reasons,
+     };
+   },
+   [computeTotalDose, computeIngredientAmount, calculateAmounts]
+ );
+
 
   return calculateTotalAmounts(recommendations, supplement);
 };

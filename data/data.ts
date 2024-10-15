@@ -8,13 +8,14 @@ export const supplements: any = {
     ingredients: {
       vitaminD: (base: number, additional: number) =>
         `${Math.min(base + additional, 75)}`, // Ensure max 75mcg for Vitamin D
-      vitaminK2: (base: number, additional: number) => `${base + additional}`, // No cap for Vitamin K2
+      vitaminK2: (base: number, additional: number) =>
+        `${2 * Math.min(base + additional, 75)}`, // Vitamin K2 is always 2x Vitamin D, no cap for Vitamin K2
     },
     baseAmounts: {
       vitaminD: 25, // base amount of Vitamin D in mcg
-      vitaminK2: 50, // base amount of Vitamin K2 in mcg
+      vitaminK2: 50, // base amount of Vitamin K2 in mcg (will be calculated as 2x Vitamin D)
     },
-    note: "Flexible dosing",
+    note: "Vitamin K2 is always 2x Vitamin D",
     realWeightFactor: 1,
   },
   S02: {
