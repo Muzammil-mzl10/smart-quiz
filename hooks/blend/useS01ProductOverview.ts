@@ -33,12 +33,12 @@ const useS01ProductOverview = ({
     (supplement: any, totalDoseCount: number) => {
       const totalBaseAmount = Object.keys(supplement.baseAmounts).reduce(
         (total, ingredient, index) => {
-          const baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
-          const totalAmount = baseAmount + totalDoseCount;
-
+          const totalAmount =  totalDoseCount;
+          
           if (index === 0) {
             return total + Math.min(totalAmount, 75);
           }
+          console.log(total + totalDoseCount)
           return total + totalAmount;
         },
         0
@@ -69,7 +69,7 @@ const useS01ProductOverview = ({
 
      // Calculate total ingredients based on recommendations and supplement's base amounts
      Object.keys(supplement.ingredients).forEach((ingredient, index) => {
-       const baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
+       
 
        if (!totalIngredients[ingredient]) {
          totalIngredients[ingredient] = 0;
@@ -77,7 +77,7 @@ const useS01ProductOverview = ({
 
        if (ingredient === "vitaminD") {
          totalIngredients[ingredient] = Math.min(
-           baseAmount + totalDoseCount,
+            totalDoseCount,
            75
          );
        } else if (ingredient === "vitaminK2") {

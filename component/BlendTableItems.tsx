@@ -70,12 +70,20 @@ const Scrollbars = dynamic(() => import("react-custom-scrollbars"), {
 });
 
 const accumulateProperties = (dataArr: any[]) => {
+  console.log(dataArr);
   const result = dataArr.reduce(
     (acc: any, curr: any) => {
+      console.log(acc);
+      console.log(curr);
       // Iterate over keys in the current data object
       Object.keys(curr.data).forEach((key) => {
         // Skip unnecessary properties
-        if (key === "adjustedAmount" || key === "calculatedAmount") {
+        console.log(key);
+        if (
+          key === "adjustedAmount" ||
+          key === "calculatedAmount" ||
+          key === "reasons"
+        ) {
           return;
         }
 
@@ -87,8 +95,9 @@ const accumulateProperties = (dataArr: any[]) => {
           };
         }
 
-        // Accumulate numeric values
-        acc[key].value += parseFloat(curr.data[key]) || 0;
+        // Accumulate numeric values, safely converting to float
+        const parsedValue = parseFloat(curr.data[key]);
+        acc[key].value += !isNaN(parsedValue) ? parsedValue : 0;
 
         // Combine reasons without duplicating them
         if (curr.reasons && Array.isArray(curr.reasons)) {
@@ -456,6 +465,8 @@ const BlendTab = ({ answers, computations, name }: any) => {
     realWeightFactor: supplements.S32.realWeightFactor,
   });
 
+  console.log(S32Return);
+
   const S33Return = useS33ProductOverview({
     recommendations: energyHerbsRecommendations,
     supplement: supplements.S33,
@@ -497,17 +508,22 @@ const BlendTab = ({ answers, computations, name }: any) => {
   //   .map((item) => item.data);
 
   // console.log(blendData);
-  const onlyTriggeredBlends = blendData.filter(
-    (u) => u.data.adjustedAmount !== "0.0000"
-  );
+  const onlyTriggeredBlends = blendData.filter((u) => {
+    if (u.data.calculatedAmount !== "0.0000") {
+      return u;
+    } else {
+      console.log(u);
+      return null;
+    }
+  });
   console.log(onlyTriggeredBlends);
   console.log(onlyTriggeredBlends);
 
   let totalDose = 0;
-  const priorityList = []  as any
+  const priorityList = [] as any;
 
   onlyTriggeredBlends.forEach((data) => {
-    const currentDose = parseFloat(String(data.data.adjustedAmount))
+    const currentDose = parseFloat(String(data.data.adjustedAmount));
 
     if (totalDose + currentDose <= 3000) {
       // Add the full dose if it doesn't exceed the limit
@@ -516,7 +532,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
         ...data,
         data: {
           ...data.data,
-          adjustedAmount: currentDose, // Using bracket notation to update adjustedAmount
+          adjustedAmount: String(currentDose), // Using bracket notation to update adjustedAmount
         },
       });
     } else {
@@ -528,16 +544,17 @@ const BlendTab = ({ answers, computations, name }: any) => {
           ...data,
           data: {
             ...data.data,
-            adjustedAmount: remainingDose.toFixed(4), // Adjusted to fit the remaining dose
+            adjustedAmount: String(remainingDose.toFixed(4)), // Adjusted to fit the remaining dose
           },
         });
       }
     }
   });
 
-  console.log(priorityList); 
+  console.log(priorityList);
 
   const accumulatedData = accumulateProperties(priorityList);
+  console.log(accumulatedData);
   const calculateRI: any = (value: any, rdi: any) =>
     rdi ? ((value / rdi) * 100).toFixed(2) : "**";
 
@@ -600,38 +617,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
       .replace(/\.?0+$/, "");
   };
 
-  const [updatedTable, setUpdatedTable] = useState() as any;
-
-  useEffect(() => {
-    if (tableData && !updatedTable) {
-      let totalDose = 0;
-      let addedDose = [] as any;
-
-      // Filter out items where value formatted to quantity equals "0"
-      const filteredTableData = tableData.filter(
-        (item) => formatQuantity(item.value) !== "0"
-      );
-
-      // filteredTableData.forEach((data) => {
-      //   const currentDose = parseFloat(data.value);
-
-      //   if (totalDose + currentDose <= 3000) {
-      //     // Add the full dose if it doesn't exceed the limit
-      //     totalDose += currentDose;
-      //     addedDose.push({ ...data, value: currentDose });
-      //   } else {
-      //     // If adding the full dose exceeds the limit, adjust to reach 3000mg
-      //     const remainingDose = 3000 - totalDose;
-      //     if (remainingDose > 0) {
-      //       totalDose = 3000;
-      //       addedDose.push({ ...data, value: remainingDose.toFixed(4) });
-      //     }
-      //   }
-      // });
-
-      setUpdatedTable(addedDose);
-    }
-  }, [tableData]);
+  console.log(tableData);
 
   return (
     <div className="w-full relative h-auto">
@@ -718,8 +704,8 @@ const BlendTab = ({ answers, computations, name }: any) => {
                           </tr>
                         </thead>
                         <tbody>
-                          {updatedTable &&
-                            updatedTable.map((item: any, idx: any) => (
+                          {tableData &&
+                            tableData.map((item: any, idx: any) => (
                               <tr
                                 key={idx}
                                 onClick={() => openModal(item)}
