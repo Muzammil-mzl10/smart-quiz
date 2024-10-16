@@ -107,10 +107,9 @@ const accumulateProperties = (dataArr: any[]) => {
 };
 
 const BlendTab = ({ answers, computations, name }: any) => {
- 
   // const { selectedProducts } = useProductOverviewStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const profile = {
     gender: answers.find((a: any) => a.questionId === "gender")?.answer,
     age:
@@ -119,7 +118,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
         answers.find((a: any) => a.questionId === "dateOfBirth")?.answer
       ).getFullYear(),
   };
-
 
   const answersMap = answers.reduce((acc: any, curr: any) => {
     acc[curr.questionId] = curr.answer;
@@ -162,8 +160,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     magnesiumSupplementRecommendations,
     "S04"
   );
- 
-  
+
   const ironRecommendations = getRecommendations(
     ironSupplementRecommendations,
     "S05"
@@ -184,7 +181,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
     "S08"
   );
 
-  
   const antiStressRecommendations = getRecommendations(
     antiStressSupplementRecommendations,
     "S09"
@@ -260,7 +256,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
     "S33"
   );
 
-
   const S01Return = useS01ProductOverview({
     recommendations: vitaminDRecommendations,
     supplement: supplements.S01,
@@ -269,7 +264,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S01.realWeightFactor,
   });
-  console.log(S01Return)
+  console.log(S01Return);
 
   const S02Return = useS02ProductOverview({
     recommendations: omega3Recommendations,
@@ -334,8 +329,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S08.realWeightFactor,
   });
-
-
 
   const S09Return = useS09ProductOverview({
     recommendations: antiStressRecommendations,
@@ -462,7 +455,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S32.realWeightFactor,
   });
- 
 
   const S33Return = useS33ProductOverview({
     recommendations: energyHerbsRecommendations,
@@ -505,7 +497,47 @@ const BlendTab = ({ answers, computations, name }: any) => {
   //   .map((item) => item.data);
 
   // console.log(blendData);
-  const accumulatedData = accumulateProperties(blendData);
+  const onlyTriggeredBlends = blendData.filter(
+    (u) => u.data.adjustedAmount !== "0.0000"
+  );
+  console.log(onlyTriggeredBlends);
+  console.log(onlyTriggeredBlends);
+
+  let totalDose = 0;
+  const priorityList = []  as any
+
+  onlyTriggeredBlends.forEach((data) => {
+    const currentDose = parseFloat(String(data.data.adjustedAmount))
+
+    if (totalDose + currentDose <= 3000) {
+      // Add the full dose if it doesn't exceed the limit
+      totalDose += currentDose;
+      priorityList.push({
+        ...data,
+        data: {
+          ...data.data,
+          adjustedAmount: currentDose, // Using bracket notation to update adjustedAmount
+        },
+      });
+    } else {
+      // If adding the full dose exceeds the limit, adjust to reach 3000mg
+      const remainingDose = 3000 - totalDose;
+      if (remainingDose > 0) {
+        totalDose = 3000;
+        priorityList.push({
+          ...data,
+          data: {
+            ...data.data,
+            adjustedAmount: remainingDose.toFixed(4), // Adjusted to fit the remaining dose
+          },
+        });
+      }
+    }
+  });
+
+  console.log(priorityList); 
+
+  const accumulatedData = accumulateProperties(priorityList);
   const calculateRI: any = (value: any, rdi: any) =>
     rdi ? ((value / rdi) * 100).toFixed(2) : "**";
 
@@ -528,8 +560,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
     },
     {}
   );
-
-  
 
   const tableData = Object.keys(accumulatedValues).map((key) => {
     let value = parseFloat(accumulatedData[key].value);
@@ -570,7 +600,6 @@ const BlendTab = ({ answers, computations, name }: any) => {
       .replace(/\.?0+$/, "");
   };
 
-  
   const [updatedTable, setUpdatedTable] = useState() as any;
 
   useEffect(() => {
@@ -583,28 +612,26 @@ const BlendTab = ({ answers, computations, name }: any) => {
         (item) => formatQuantity(item.value) !== "0"
       );
 
-      filteredTableData.forEach((data) => {
-        const currentDose = parseFloat(data.value);
+      // filteredTableData.forEach((data) => {
+      //   const currentDose = parseFloat(data.value);
 
-        if (totalDose + currentDose <= 3000) {
-          // Add the full dose if it doesn't exceed the limit
-          totalDose += currentDose;
-          addedDose.push({ ...data, value: currentDose });
-        } else {
-          // If adding the full dose exceeds the limit, adjust to reach 3000mg
-          const remainingDose = 3000 - totalDose;
-          if (remainingDose > 0) {
-            totalDose = 3000;
-            addedDose.push({ ...data, value: remainingDose.toFixed(4) });
-          }
-        }
-      });
+      //   if (totalDose + currentDose <= 3000) {
+      //     // Add the full dose if it doesn't exceed the limit
+      //     totalDose += currentDose;
+      //     addedDose.push({ ...data, value: currentDose });
+      //   } else {
+      //     // If adding the full dose exceeds the limit, adjust to reach 3000mg
+      //     const remainingDose = 3000 - totalDose;
+      //     if (remainingDose > 0) {
+      //       totalDose = 3000;
+      //       addedDose.push({ ...data, value: remainingDose.toFixed(4) });
+      //     }
+      //   }
+      // });
 
       setUpdatedTable(addedDose);
     }
   }, [tableData]);
-
- 
 
   return (
     <div className="w-full relative h-auto">
