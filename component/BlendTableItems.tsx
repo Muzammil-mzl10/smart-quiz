@@ -259,6 +259,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     folicAcidSupplementRecommendations,
     "S32"
   );
+ 
 
   const energyHerbsRecommendations = getRecommendations(
     energyHerbsSupplementRecommendations,
@@ -501,7 +502,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     { productCode: "S03", data: S03Return, reasons: S03Return.reasons },
     { productCode: "S06", data: S06Return, reasons: S06Return.reasons },
   ];
-  console.log(blendData);
+ 
   // console.log(selectedProducts)
   // const filteredBlendData = blendData
   //   .filter((item) => selectedProducts.includes(item.productCode))
@@ -512,11 +513,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
     if (u.data.calculatedAmount !== "0.0000") {
       return u;
     } else {
-      console.log(u);
+      // console.log(u);
       return null;
     }
   });
-  console.log(onlyTriggeredBlends);
   console.log(onlyTriggeredBlends);
 
   let totalDose = 0;
@@ -577,6 +577,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     },
     {}
   );
+  console.log(accumulatedValues)
 
   const tableData = Object.keys(accumulatedValues).map((key) => {
     let value = parseFloat(accumulatedData[key].value);

@@ -32,7 +32,7 @@ const useS32ProductOverview = ({
 
       recommendations.forEach((rec: any) => {
         const doseMultiplier = computeTotalDose(rec.recommendedDose);
-
+        console.log(doseMultiplier)
         Object.keys(supplement.ingredients).forEach((ingredient) => {
           const baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
           const ingredientAmount = computeIngredientAmount(
