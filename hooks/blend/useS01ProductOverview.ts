@@ -20,9 +20,6 @@ const useS01ProductOverview = ({
 
   const computeTotalDose = useCallback(
     (recommendedDoseFn: any) => {
-      console.log(answersMap)
-      console.log(computationData)
-      console.log(profile)
       // Removed markersMap from argument list
       return recommendedDoseFn(answersMap, computationData, profile);
     },
@@ -38,7 +35,6 @@ const useS01ProductOverview = ({
           if (index === 0) {
             return total + Math.min(totalAmount, 75);
           }
-          console.log(total + totalDoseCount)
           return total + totalAmount;
         },
         0

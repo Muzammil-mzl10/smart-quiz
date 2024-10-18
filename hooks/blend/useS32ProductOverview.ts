@@ -32,7 +32,7 @@ const useS32ProductOverview = ({
 
       recommendations.forEach((rec: any) => {
         const doseMultiplier = computeTotalDose(rec.recommendedDose);
-        console.log(doseMultiplier)
+
         Object.keys(supplement.ingredients).forEach((ingredient) => {
           const baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
           const ingredientAmount = computeIngredientAmount(
@@ -47,28 +47,29 @@ const useS32ProductOverview = ({
         });
 
         if (
-          rec.recommendationId === "R30" ||
-          rec.recommendationId === "R191" ||
-          rec.recommendationId === "R192"
+          rec.recommendationId === "R196" ||
+          rec.recommendationId === "R197" 
         ) {
+          console.log(doseMultiplier)
           totalFixDose += doseMultiplier;
         } else {
           totalDoseCount += doseMultiplier;
         }
-
+        console.log(totalFixDose);
         reasons.push(rec.reason);
       });
-
+      let baseAmount = 0
       let totalAmount = 0;
       Object.keys(supplement.ingredients).forEach((ingredient) => {
-        const baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
+        baseAmount = parseFloat(supplement.baseAmounts[ingredient]);
         const totalIngredientAmount = computeIngredientAmount(
           baseAmount,
           Math.min(totalDoseCount, 2.5)
         );
-
+        
         totalAmount += totalIngredientAmount;
       });
+      totalFixDose = totalFixDose * baseAmount
 
       const adjustedAmount = (
         (totalAmount + totalFixDose / 1000) *
@@ -84,7 +85,7 @@ const useS32ProductOverview = ({
       return {
         adjustedAmount,
         calculatedAmount,
-        folicAcid: totalFixDose / 1000 || 0,
+        folicAcid: totalFixDose  || 0,
         reasons,
       };
     },

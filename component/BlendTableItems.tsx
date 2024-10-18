@@ -70,15 +70,15 @@ const Scrollbars = dynamic(() => import("react-custom-scrollbars"), {
 });
 
 const accumulateProperties = (dataArr: any[]) => {
-  console.log(dataArr);
+  // console.log(dataArr);
   const result = dataArr.reduce(
     (acc: any, curr: any) => {
-      console.log(acc);
-      console.log(curr);
+      // console.log(acc);
+      // console.log(curr);
       // Iterate over keys in the current data object
       Object.keys(curr.data).forEach((key) => {
         // Skip unnecessary properties
-        console.log(key);
+        // console.log(key);
         if (
           key === "adjustedAmount" ||
           key === "calculatedAmount" ||
@@ -153,7 +153,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     vitaminDSupplementRecommendations,
     "S01"
   );
-  console.log(vitaminDRecommendations);
+  // console.log(vitaminDRecommendations);
 
   const omega3Recommendations = getRecommendations(
     omega3SupplementRecommendations,
@@ -274,7 +274,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     profile,
     realWeightFactor: supplements.S01.realWeightFactor,
   });
-  console.log(S01Return);
+  // console.log(S01Return);
 
   const S02Return = useS02ProductOverview({
     recommendations: omega3Recommendations,
@@ -517,7 +517,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
       return null;
     }
   });
-  console.log(onlyTriggeredBlends);
+  // console.log(onlyTriggeredBlends);
 
   let totalDose = 0;
   const priorityList = [] as any;
@@ -551,10 +551,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
     }
   });
 
-  console.log(priorityList);
+  // console.log(priorityList);
 
   const accumulatedData = accumulateProperties(priorityList);
-  console.log(accumulatedData);
+  // console.log(accumulatedData);
   const calculateRI: any = (value: any, rdi: any) =>
     rdi ? ((value / rdi) * 100).toFixed(2) : "**";
 
@@ -577,7 +577,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
     },
     {}
   );
-  console.log(accumulatedValues)
+  // console.log(accumulatedValues)
 
   const tableData = Object.keys(accumulatedValues).map((key) => {
     let value = parseFloat(accumulatedData[key].value);
@@ -618,7 +618,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
       .replace(/\.?0+$/, "");
   };
 
-  console.log(tableData);
+  // console.log(tableData);
 
   return (
     <div className="w-full relative h-auto">

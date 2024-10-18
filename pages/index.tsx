@@ -225,7 +225,7 @@ const LifestyleQuestionnaire = () => {
       // Prepare formatted data
       const formattedData = {
         name: getValues().name,
-        email: updatedData.email,
+        quizEmail: updatedData.email,
         answers: Object.keys(updatedData)
           .filter((key) => key !== "name" && key !== "email")
           .map((key) => ({
