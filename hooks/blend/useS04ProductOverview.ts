@@ -148,11 +148,13 @@ const useS04ProductOverview = ({
       return {
         adjustedAmount: exceeds200mg ? "0" : adjustedAmount.toFixed(4),
         calculatedAmount: exceeds200mg ? "0" : calculatedAmount.toFixed(4),
-        magnesiumBisglycinate: newMagnesiumBisglycinate.toFixed(4),
-        magnesiumTaurate: magnesiumTaurate.toFixed(4),
-        magnesiumMalate: magnesiumMalate.toFixed(4),
-        vitaminB6: vitaminB6.toFixed(4),
-        lTaurine: lTaurine.toFixed(4),
+        magnesiumBisglycinate: exceeds200mg
+          ? "0"
+          : newMagnesiumBisglycinate.toFixed(4),
+        magnesiumTaurate: exceeds200mg ? "0" : magnesiumTaurate.toFixed(4),
+        magnesiumMalate: exceeds200mg ? "0" : magnesiumMalate.toFixed(4),
+        vitaminB6: exceeds200mg ? "0" : vitaminB6.toFixed(4),
+        lTaurine: exceeds200mg ? "0" : lTaurine.toFixed(4),
         reasons,
       };
     },

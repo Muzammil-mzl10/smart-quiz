@@ -63,7 +63,7 @@ const useS08ProductOverview = ({
     const magnesiumBisglycinate =
       supplement.baseAmounts.magnesiumBisglycinate *
       Math.min(totalDoseCount, 2);
-
+     console.log(supplement.baseAmounts.folicAcid * Math.min(totalDoseCount, 2))
     return {
       adjustedAmount: adjustedAmount.toFixed(4),
       calculatedAmount: calculatedAmount.toFixed(4),

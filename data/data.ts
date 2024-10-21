@@ -1663,7 +1663,8 @@ export const vitaminBSupplementRecommendations: any = [
     supplementId: "S08",
     condition: (answers: any) => answers.Q45 === "Ja",
     recommendedDose: () => 0, // No supplementation
-    reason: "No supplementation is recommended based on your answers.",
+    reason:
+      "Je hebt aangegeven zwanger te zijn, borstvoeding te geven of binnen drie maanden kinderen te willen. Deze dosering is gebaseerd op alle voedingsstoffen die jij en je baby nodig hebben, in veilige hoeveelheden.",
   },
 ];
 
@@ -2804,17 +2805,29 @@ export const folicAcidSupplementRecommendations: any = [
       return 1;
     },
     reason:
-      "As you get older, it becomes more difficult to absorb enough folic acid.",
+      "Extra foliumzuur is toegevoegd, passend bij de ondersteuning van hartgezondheid naarmate je ouder wordt.",
   },
   {
     recommendationId: "R197",
     questionnaireId: "Q46",
     supplementId: "S32",
-    condition: (answers: any) => answers.Q46.includes("Hartgezondheid"),
+    condition: (_answers: any, _computations: any, profile: any) =>
+      profile.age < 65,
     recommendedDose: (_answers: any, _computations: any) => {
       return 1;
     },
-    reason: "You have indicated that heart health is one of your health goals.",
+    reason:
+      "Je hebt aangegeven dat hartgezondheid een van je gezondheidsdoelen is.",
+  },
+  {
+    recommendationId: "R132",
+    questionnaireId: "Q53",
+    supplementId: "S05",
+    condition: (answers: any) =>
+      answers.Q53.includes("Begint dunner te worden of haaruitval"),
+    recommendedDose: () => 1.4,
+    reason:
+      "Je hebt aangegeven last te hebben van dunner wordend haar of toegenomen haaruitval.",
   },
 ];
 

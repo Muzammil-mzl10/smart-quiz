@@ -579,7 +579,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
   );
   // console.log(accumulatedValues)
 
-  const tableData = Object.keys(accumulatedValues).map((key) => {
+  let tableData = Object.keys(accumulatedValues).map((key) => {
     let value = parseFloat(accumulatedData[key].value);
 
     if (mcgToMgMapping[key]) {
@@ -618,7 +618,8 @@ const BlendTab = ({ answers, computations, name }: any) => {
       .replace(/\.?0+$/, "");
   };
 
-  // console.log(tableData);
+  tableData = tableData.filter((u) => u.value !== "0.0000");
+  console.log(tableData);
 
   return (
     <div className="w-full relative h-auto">
