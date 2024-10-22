@@ -2812,7 +2812,7 @@ export const folicAcidSupplementRecommendations: any = [
     questionnaireId: "Q46",
     supplementId: "S32",
     condition: (_answers: any, _computations: any, profile: any) =>
-      profile.age < 65,
+      _answers.Q46.includes("Hartgezondheid") && profile.age < 65,
     recommendedDose: (_answers: any, _computations: any) => {
       return 1;
     },
