@@ -624,10 +624,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
   return (
     <div className="w-full relative h-auto">
       <div className="from-[#DDF3F7] to-[#6EC8ED] bg-gradient-to-b h-[65vh]">
-        <div className="flex md:flex-row flex-col w-auto space-x-0 md:-space-x-56 mb-5 pt-0 md:pt-5 items-start justify-around">
+        <div className="flex md:flex-row ml-0 md:-ml-44 flex-col w-auto mb-5 pt-0 md:pt-5 items-start justify-evenly">
           <div className="w-[100vw] md:w-[50vw] mt-14 flex space-y-5 justify-center items-center flex-col text-center">
             <div className="md:text-3xl text-xl w-[80vw] md:w-[30vw] font-bold">
-              Luuk de Jong, je persoonlijke supplement is berekend!
+              {name}, je persoonlijke supplement is berekend!
             </div>
             <div className="md:text-lg text-sm w-[80vw] md:w-[30vw]">
               1 tot 5 dagelijkse capsules met precies de stoffen die jouw
@@ -635,7 +635,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
             </div>
             <a
               className="flex z-10 mt-5 md:mt-10 justify-center items-center w-72 border-white border-2  rounded-3xl bg-gradient-to-r from-malibu-300 to-froly-400 px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gradient-to-r hover:from-froly-400 hover:to-malibu-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300"
-              href="#"
+              href="#Payment"
             >
               Bestel Nu
               <svg
@@ -662,14 +662,14 @@ const BlendTab = ({ answers, computations, name }: any) => {
               />
               <div
                 style={{ justifyContent: "flex-start", display: "flex" }}
-                className="z-10 w-28 truncate items-start justify-start text-xs md:text-[1rem] top-[67.5%] left-[38.5%] text-white absolute"
+                className="z-10 w-28 truncate items-start justify-start text-xs md:text-[1rem] top-[67%] md:top-[68.5%] left-[38.5%] text-white absolute"
               >
                 {name}
               </div>
             </div>
           </div>
 
-          <div className="w-[100vw] md:mt-0 -mt-16 md:w-[35vw]">
+          <div className="w-[100vw] ml-0 md:-ml-72  md:mt-0 -mt-16 md:w-[35vw]">
             {tableData.length > 0 && (
               <div className="mt-4 flex w-full flex-col items-center gap-3 rounded-lg">
                 <div className="w-full max-w-2xl rounded-3xl bg-gradient-to-b from-white to-[#78c1f3] p-2">
@@ -677,7 +677,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                     <div className="text-xl mt-5 font-bold">
                       Jouw Unieke Smartblend
                     </div>
-                    <div className="font-normal text-xs px-6 text-center mt-2 mb-0">
+                    <div className="font-normal text-sm px-6 text-center mt-2 mb-0">
                       Je persoonlijke aanbeveling is gebaseerd op je dieet,
                       levenstijl, gezondheidsdoelen en ons unieke algoritme wat
                       gebaseerd is op duizenden wetenschappelijk onderzoeken.
@@ -841,7 +841,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                           justifyContent: "flex-start",
                           display: "flex",
                         }}
-                        className="absolute w-28 truncate bottom-[62px] left-[38px] text-white"
+                        className="absolute w-28 truncate bottom-[53px] left-[33px] text-white"
                       >
                         {name}
                       </div>
@@ -866,7 +866,10 @@ const BlendTab = ({ answers, computations, name }: any) => {
                       </li>
                     </ul>
                   </div>
-                  <div className="flex w-full items-center justify-center">
+                  <div
+                    id="Payment"
+                    className="flex w-full items-center justify-center"
+                  >
                     <PricingSelect />
                   </div>
                 </div>

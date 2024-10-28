@@ -8,7 +8,8 @@
 
 html,body{
   font-family: "Poppins", sans-serif;
-  color: #222;
+  color: #4F5B68;
+  scroll-behavior: smooth;
   /* overflow-x: hidden; */
   /* overflow-y: auto; */
 }
