@@ -841,7 +841,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                           justifyContent: "flex-start",
                           display: "flex",
                         }}
-                        className="absolute w-28 truncate bottom-[53px] left-[33px] text-white"
+                        className="absolute w-28 truncate bottom-[63px] left-[38px] text-white"
                       >
                         {name}
                       </div>
