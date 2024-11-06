@@ -802,7 +802,7 @@ const LifestyleQuestionnaire = () => {
       className={
         startQuiz
           ? "flex items-center justify-center overflow-hidden"
-          : "mt-4 flex items-center justify-center"
+          : " flex items-center justify-center"
       }
     >
       {startQuiz ? (
@@ -839,7 +839,7 @@ const LifestyleQuestionnaire = () => {
         introSection ? (
           <div className="w-full max-w-4xl">
             <div className="rounded-lg bg-white lg:px-2 lg:py-3 lg:shadow">
-              <div className="relative min-h-[500px] min-w-[300px] overflow-hidden rounded border-shuttle-gray-100 bg-lightbg lg:border lg:border-dashed lg:p-2">
+              <div className="relative min-h-screen md:min-h-[500px] min-w-[300px] overflow-hidden rounded border-shuttle-gray-100 bg-lightbg lg:border lg:border-dashed lg:p-2">
                 <div
                   onClick={() => setIntroSection(false)}
                   className="mb-6 text-center px-5 md:px-16 flex flex-col justify-center items-center"
@@ -967,15 +967,14 @@ const LifestyleQuestionnaire = () => {
       ) : (
         computationData &&
         processedAnswers && (
-          <div>
+          
             <BlendTab
               name={getValues().name}
               answers={processedAnswers}
               computations={computationData.computations}
               // answersData={processedAnswers}
             />
-            {/* <UniqueSmartBlend answersData={processedAnswers} /> */}
-          </div>
+          
         )
       )}
     </div>

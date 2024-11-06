@@ -15,7 +15,7 @@ const RadioButton = ({
 }: any) => {
   return (
     <div
-      className={`cursor-pointer rounded-2xl border-[3px] bg-white p-4 ${
+      className={`cursor-pointer w-full rounded-2xl border-[3px] bg-white p-4 ${
         selectedValue === value ? "border-malibu-300" : "border-gray-300"
       }`}
       onClick={() => onChange(value)}
@@ -29,21 +29,25 @@ const RadioButton = ({
         className="hidden"
       />
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex w-full items-center">
           <div
             className={`mr-2 size-4 min-w-4 ${
               selectedValue === value ? "bg-malibu-300" : "bg-gray-300"
             } rounded-full`}
           />
-          <h2 className="md:text-lg text-xs font-semibold">{title}</h2>
+          <h2 className="md:text-lg text-[1.1rem] md:w-auto w-56 md:tracking-normal tracking-tighter font-semibold">
+            {title}
+          </h2>
         </div>
-        <span className="ml-4 text-2xl font-semibold text-malibu-300">
+        <span className="ml-0 md:ml-4 text-lg md:text-2xl font-semibold text-malibu-300">
           €{price}
         </span>
       </div>
-      <ul className="mt-2 list-inside list-disc text-[0.5rem] md:text-lg p-0 md:pl-1">
+      <ul className="mt-2 list-outside list-disc pl-5 text-sm md:text-lg">
         {descriptions.map((description: any, index: number) => (
-          <li key={index}>{description}</li>
+          <li key={index} className="leading-tight">
+            {description}
+          </li>
         ))}
       </ul>
     </div>
@@ -59,13 +63,14 @@ const PricingSelect = () => {
 
   const handleSubmit = () => {
     if (selectedValue === "option1") {
-      window.location.href = "https://buy.stripe.com/7sIdUwepV7Qf8oM8ww";
+      window.open("https://buy.stripe.com/fZe03G95B8Uj7kIaEJ", "_blank");
     } else if (selectedValue === "option2") {
-      window.location.href = "https://buy.stripe.com/00g3fSgy3gmL48weUX";
+      window.open("https://buy.stripe.com/dR68Acgy3daz8oMcMQ", "_blank");
     } else {
       alert("Please select an option");
     }
   };
+
 
   const options = [
     {
@@ -93,7 +98,7 @@ const PricingSelect = () => {
   ];
 
   return (
-    <div className="flex flex-col space-y-4 px-4">
+    <div className="flex w-full flex-col space-y-4 px-0 md:px-4">
       {options.map((option) => (
         <RadioButton
           key={option.value}
@@ -109,7 +114,7 @@ const PricingSelect = () => {
       <button
         type="button"
         onClick={handleSubmit}
-        className="flex w-full items-center justify-center rounded-3xl bg-gradient-to-r from-malibu-300 to-froly-400 px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gradient-to-r hover:from-froly-400 hover:to-malibu-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300"
+        className="flex w-full items-center justify-center rounded-3xl bg-gradient-to-r from-malibu-300 to-froly-400 px-0 md:px-4 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gradient-to-r hover:from-froly-400 hover:to-malibu-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-malibu-300"
       >
         Nu Afrekenen <MoveRight className="ml-2 h-4" />
       </button>

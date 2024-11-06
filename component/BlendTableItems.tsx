@@ -658,11 +658,11 @@ const BlendTab = ({ answers, computations, name }: any) => {
               <img
                 src="/mockup-packaging.png"
                 style={{ marginTop: "-117px" }}
-                className=" md:w-[34rem] w-[25rem] h-[30rem] md:h-[34rem]"
+                className=" md:w-[34rem] w-[30rem] h-[30rem] md:h-[34rem]"
               />
               <div
                 style={{ justifyContent: "flex-start", display: "flex" }}
-                className="z-10 w-28 truncate items-start justify-start text-xs md:text-[1rem] top-[67%] md:top-[68.5%] left-[38.5%] text-white absolute"
+                className="z-10 w-20 md:w-28 truncate items-start justify-start text-xs md:text-[1rem] top-[67%] md:top-[68.5%] left-[38.5%] text-white absolute"
               >
                 {name}
               </div>
@@ -768,21 +768,21 @@ const BlendTab = ({ answers, computations, name }: any) => {
           </div>
         </div>
         <div className="w-full flex flex-col justify-center items-center py-10">
-          <div className="text-center text-5xl font-bold">
+          <div className="text-center text-2xl md:text-5xl font-bold">
             Waarom Smartblend?
           </div>
-          <div className="flex justify-center md:justify-around items-center mt-10 space-x-0 md:space-x-10">
+          <div className="flex justify-center md:justify-around items-center mt-5 md:mt-10 space-x-0 md:space-x-10">
             <img
               src="./coverimage.png"
               className="w-[30vw] hidden md:block shadow-lg shadow-gray-400 rounded-3xl"
             />
-            <div className="flex space-y-10 w-[80vw] md:w-[35vw] flex-col justify-start items-start">
+            <div className="flex space-y-8 md:space-y-10 w-[95vw] md:w-[35vw] flex-col justify-start items-start">
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
                 <img
                   src="./Checkmarkicon-smartblendblue.png"
                   className="w-10 h-10"
                 />
-                <div className="flex flex-col justify-start items-start">
+                <div className="flex flex-col md:ml-0 !ml-5 justify-start items-start">
                   <div className="font-bold">Echt Gepersonaliseerd</div>
                   <div className="font-light">
                     Het enige supplement dat 100% is aangepast aan jouw
@@ -795,7 +795,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                   src="./Checkmarkicon-smartblendblue.png"
                   className="w-10 h-10"
                 />
-                <div className="flex flex-col justify-start items-start">
+                <div className="flex flex-col md:ml-0 !ml-5 justify-start items-start">
                   <div className="font-bold">Wetenschappelijk Onderbouwd</div>
                   <div className="font-light">
                     Ons algoritme is ontwikkeld op basis van de bevindingen uit
@@ -808,7 +808,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                   src="./Checkmarkicon-smartblendblue.png"
                   className="w-10 h-10"
                 />
-                <div className="flex flex-col justify-start items-start">
+                <div className="flex flex-col md:ml-0 !ml-5 justify-start items-start">
                   <div className="font-bold">
                     Tot 50 Verschillende Voedingsstoffen in Jouw Formule
                   </div>
@@ -823,11 +823,11 @@ const BlendTab = ({ answers, computations, name }: any) => {
           </div>
         </div>
         <div className="w-full pb-10 flex justify-center items-center">
-          <div className="w-[90vw] flex justify-center items-center">
-            <div className="relative w-[80vw] md:w-[68vw] rounded-3xl flex max-h-screen bg-gradient-to-b from-malibu-100 to-malibu-200 p-6 shadow-lg lg:max-h-[720px]">
+          <div className="w-[100vw] flex justify-center items-center">
+            <div className="relative w-[95vw] md:w-[68vw] rounded-3xl flex max-h-auto md:max-h-screen bg-gradient-to-b from-malibu-100 to-malibu-200 p-6 shadow-lg lg:max-h-[720px]">
               <div className="flex size-full justify-center">
                 <div className="flex w-full flex-col items-center justify-center overflow-y-auto lg:flex-row">
-                  <div className="hidden w-full flex-col items-center justify-center lg:flex">
+                  <div className="w-full flex-col items-center justify-center flex">
                     <div className="relative mx-auto max-w-[240px]">
                       <Image
                         src="/assets/images/packaging.png"
@@ -856,7 +856,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                         <Check className="mr-2 size-4" />
                         <span>Wetenschappelijk onderbouwd</span>
                       </li>
-                      <li className="mb-2 flex items-center">
+                      <li className="mb-2 hidden md:flex items-center">
                         <Check className="mr-2 size-4" />
                         <span>Zorgvuldig gedoseerd</span>
                       </li>
@@ -913,33 +913,33 @@ const BlendTab = ({ answers, computations, name }: any) => {
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           contentLabel="Element Details Modal"
-          className="modal absolute h-[25vh] shadow-lg shadow-white rounded-lg w-[50vw] left-[25%] top-64 z-10 bg-blue-400 overflow-hidden"
+          className="modal max-h-screen w-full max-w-3xl overflow-auto"
           overlayClassName="modal-overlay"
         >
           <button
             type="button"
             onClick={closeModal}
-            className="absolute right-4 top-4 flex z-10 size-6 cursor-pointer items-center justify-center rounded-full border-none bg-[#78c1f3] text-white hover:bg-[#f37783]"
+            className="absolute right-4 top-4 flex size-6 cursor-pointer items-center justify-center rounded-full border-none bg-[#78c1f3] text-white hover:bg-[#f37783]"
           >
             <X className="size-4" />
           </button>
           <div className="py-4 pl-4">
-            <h2 className="pb-8 mb-5 text-xl absolute font-bold text-black">
+            <h2 className="pb-4 text-xl font-bold text-shuttle-gray-600">
               {selectedItem.readableName}
             </h2>
             <Scrollbars
               className="size-full"
-              style={{ height: 500, width: "100%" }}
+              style={{ height: 540, width: "100%" }}
             >
-              <div className="pr-4 pt-5">
-                <AdditionalInfo id={selectedItem.id} />
+              <div className="pr-4">
+                <AdditionalInfo id={selectedItem.nutrientID} />
 
-                <h3 className="mt-4 text-base font-bold text-black">
-                  Ingredients Title
+                <h3 className="mt-4 text-base font-bold text-shuttle-gray-600">
+                  ingredientsTitle
                 </h3>
 
-                <div className="overflow-x-auto rounded-lg">
-                  <table className="mt-2  min-w-full divide-y divide-gray-200">
+                <div className="overflow-x-auto">
+                  <table className="mt-2 min-w-full divide-y divide-gray-200">
                     <thead>
                       <tr>
                         <th className="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-shuttle-gray-600">
@@ -949,7 +949,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                           quantity
                         </th>
                         <th className="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-shuttle-gray-600">
-                          R1%
+                          nrv
                         </th>
                       </tr>
                     </thead>
@@ -969,17 +969,17 @@ const BlendTab = ({ answers, computations, name }: any) => {
                   </table>
                 </div>
 
-                {selectedItem.recommendations && (
+                {selectedItem.reasons && (
                   <div>
                     <h3 className="mt-4 text-base font-bold text-shuttle-gray-600">
                       Waarom zit dit in jouw Smartblend?
                     </h3>
                     <ul className="list-disc pl-5 text-sm text-shuttle-gray-600">
-                      {selectedItem.recommendations
-                        .split("\n")
-                        .map((reason: string, index: number) => (
+                      {selectedItem.reasons.map(
+                        (reason: string, index: number) => (
                           <li key={index}>{reason}</li>
-                        ))}
+                        )
+                      )}
                     </ul>
                   </div>
                 )}
