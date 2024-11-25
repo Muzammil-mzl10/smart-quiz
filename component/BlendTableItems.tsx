@@ -773,13 +773,13 @@ const BlendTab = ({ answers, computations, name }: any) => {
           </div>
           <div className="flex justify-center md:justify-around items-center mt-5 md:mt-10 space-x-0 md:space-x-10">
             <img
-              src="./coverimage.png"
+              src="../../coverimage.png"
               className="w-[30vw] hidden md:block shadow-lg shadow-gray-400 rounded-3xl"
             />
             <div className="flex space-y-8 md:space-y-10 w-[95vw] md:w-[35vw] flex-col justify-start items-start">
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
                 <img
-                  src="./Checkmarkicon-smartblendblue.png"
+                  src="../../Checkmarkicon-smartblendblue.png"
                   className="w-10 h-10"
                 />
                 <div className="flex flex-col md:ml-0 !ml-5 justify-start items-start">
@@ -792,7 +792,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
               </div>
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
                 <img
-                  src="./Checkmarkicon-smartblendblue.png"
+                  src="../../Checkmarkicon-smartblendblue.png"
                   className="w-10 h-10"
                 />
                 <div className="flex flex-col md:ml-0 !ml-5 justify-start items-start">
@@ -805,7 +805,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
               </div>
               <div className="flex p-2 border space-x-2 hover:scale-105 ease-in duration-500 cursor-pointer shadow-sm shadow-blue-400 rounded-lg border-blue-50 justify-center items-center">
                 <img
-                  src="./Checkmarkicon-smartblendblue.png"
+                  src="../../Checkmarkicon-smartblendblue.png"
                   className="w-10 h-10"
                 />
                 <div className="flex flex-col md:ml-0 !ml-5 justify-start items-start">
