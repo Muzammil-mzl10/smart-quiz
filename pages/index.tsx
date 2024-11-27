@@ -259,6 +259,19 @@ const LifestyleQuestionnaire = () => {
         setProcessedAnswers(formattedData.answers);
         setQuizResults(false);
         toast.success("Submission successful!");
+
+        // Trigger the dataLayer event for quiz completion
+        const parentWindow = window.parent as Window & { dataLayer?: any[] };
+
+        if (parentWindow.dataLayer) {
+          parentWindow.dataLayer.push({
+            event: "quizCompletion",
+          });
+          console.log("dataLayer event 'quizCompletion' pushed successfully.");
+        } else {
+          console.warn("dataLayer is not available on the parent window.");
+        }
+
         console.log("success");
       } else {
         const errorData = await res.json();
@@ -814,7 +827,10 @@ const LifestyleQuestionnaire = () => {
             />
           </div>
           <div className="w-1/2 flex justify-start items-center relative">
-            <img src="https://go-checkout.bioniq.com/assets/logo-92293984.svg" className="absolute top-5 left-0" />
+            <img
+              src="https://go-checkout.bioniq.com/assets/logo-92293984.svg"
+              className="absolute top-5 left-0"
+            />
             <div className="flex flex-col justify-start">
               <div className="font-bold text-4xl tracking-wider">
                 Go For Health
@@ -829,7 +845,10 @@ const LifestyleQuestionnaire = () => {
                 years of scientific data to formulate your personalized
                 recommendations.
               </div>
-              <button onClick={()=> setStartQuiz(false)} className="bg-[#098FE0] p-4 text-xl font-normal text-white rounded-lg w-44 mt-10">
+              <button
+                onClick={() => setStartQuiz(false)}
+                className="bg-[#098FE0] p-4 text-xl font-normal text-white rounded-lg w-44 mt-10"
+              >
                 Begin
               </button>
             </div>
@@ -967,14 +986,12 @@ const LifestyleQuestionnaire = () => {
       ) : (
         computationData &&
         processedAnswers && (
-          
-            <BlendTab
-              name={getValues().name}
-              answers={processedAnswers}
-              computations={computationData.computations}
-              // answersData={processedAnswers}
-            />
-          
+          <BlendTab
+            name={getValues().name}
+            answers={processedAnswers}
+            computations={computationData.computations}
+            // answersData={processedAnswers}
+          />
         )
       )}
     </div>
