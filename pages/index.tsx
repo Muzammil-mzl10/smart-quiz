@@ -203,6 +203,20 @@ const LifestyleQuestionnaire = () => {
   console.log(processedAnswers);
   console.log(computationData);
 
+  const handleQuizCompletion = () => {
+    try {
+      window.parent.postMessage(
+        {
+          event: "quizCompletion",
+        },
+        "https://www.smartblend.nl/vitamine-test" // Parent's origin
+      );
+      console.log("Message 'quizCompletion' sent to parent window.");
+    } catch (error) {
+      console.error("Failed to send 'quizCompletion' message:", error);
+    }
+  };
+
   const onSubmit = async (data: any) => {
     try {
       const updatedData = { ...data };
@@ -260,17 +274,7 @@ const LifestyleQuestionnaire = () => {
         setQuizResults(false);
         toast.success("Submission successful!");
 
-        // Trigger the dataLayer event for quiz completion
-        const parentWindow = window.parent as Window & { dataLayer?: any[] };
-
-        if (parentWindow.dataLayer) {
-          parentWindow.dataLayer.push({
-            event: "quizCompletion",
-          });
-          console.log("dataLayer event 'quizCompletion' pushed successfully.");
-        } else {
-          console.warn("dataLayer is not available on the parent window.");
-        }
+        handleQuizCompletion();
 
         console.log("success");
       } else {
