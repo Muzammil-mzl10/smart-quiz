@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import BlendTab from "@/component/BlendTableItems";
 import useComputation from "@/hooks/useComputation";
-import { useParams } from "next/navigation";
+import { useRouter } from "next/router"; // Use router for query parameters
 
 const Blend = () => {
-  const params = useParams();
-  const [profileData, setProfileData] = useState(null) as any // Initialize as null
+  const router = useRouter();
+  const { email, uniqueID } = router.query; // Access query params
+  const [profileData, setProfileData] = useState<any | null>(null);
   const [name, setName] = useState("");
+  const [isLinkExpired, setIsLinkExpired] = useState(false);
 
   const fetchUserProfileData = async () => {
     try {
@@ -15,7 +17,7 @@ const Blend = () => {
         {
           method: "POST",
           body: JSON.stringify({
-            quizEmail: params?.email,
+            quizEmail: email,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -27,25 +29,42 @@ const Blend = () => {
       setProfileData(data.data);
       setName(data.data?.name || "");
     } catch (error) {
-      console.error("Error fetching profile data:", error);
+      console.log("Error fetching profile data:", error);
     }
   };
 
   useEffect(() => {
-    if (params?.email) {
-      fetchUserProfileData();
+    if (email && uniqueID) {
+      const storedUniqueID = localStorage.getItem("quizResults");
+      console.log(storedUniqueID);
+
+      // Check if the email and the uniqueID match
+      if (storedUniqueID && uniqueID === storedUniqueID) {
+        fetchUserProfileData();
+        setIsLinkExpired(false);
+      } else {
+        setIsLinkExpired(true);
+      }
     }
-  }, [params]);
+  }, [email, uniqueID]);
 
   // Use useComputation directly with profileData?.answers
   const { data, isLoading, error } = useComputation(profileData?.answers);
 
-  if (isLoading) return <p>Loading...</p>; // Handle loading state
-  if (error) return <p>Error loading data</p>; // Handle errors
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data</p>;
 
   return (
     <div>
-      {data?.answers && data?.computations ? (
+      {isLinkExpired ? (
+        <div>
+          <h2>Expired Link</h2>
+          <p>
+            The link you followed is expired or invalid. Please check your email
+            for a valid link.
+          </p>
+        </div>
+      ) : data?.answers && data?.computations ? (
         <BlendTab
           answers={data.answers}
           name={name}

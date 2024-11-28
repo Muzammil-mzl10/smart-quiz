@@ -20,7 +20,7 @@ import { Direction, getTrackBackground, Range } from "react-range";
 import { toast } from "react-toastify";
 
 import { cn } from "../component/cn";
-
+import { v4 as uuid } from "uuid";
 import { questions } from "../component/questionaire";
 import UniqueSmartBlend from "../component/UniqueSmartblend";
 import useComputation from "@/hooks/useComputation";
@@ -100,6 +100,16 @@ const LifestyleQuestionnaire = () => {
       },
     });
 
+  const generateUUID = (numWords: any) => {
+    const uuid1 = uuid();
+
+    const words = uuid1
+      .split("-")
+      .join("")
+      .match(/.{1,4}/g) as any;
+
+    return words.slice(0, numWords).join("-");
+  };
   const selectedQ42 = watch("Q42");
   const selectedQ49 = watch("Q49");
   const selectedGender = watch("gender");
@@ -216,6 +226,8 @@ const LifestyleQuestionnaire = () => {
       console.error("Failed to send 'quizCompletion' message:", error);
     }
   };
+  let uniqueID = generateUUID(10);
+  console.log(uniqueID);
 
   const onSubmit = async (data: any) => {
     try {
@@ -236,8 +248,11 @@ const LifestyleQuestionnaire = () => {
         updatedData.height = `${data.height} cm`;
       }
 
-      // Prepare formatted data
+      let uniqueID = generateUUID(10);
+      localStorage.setItem("quizResults", uniqueID);
+      console.log(uniqueID);
       const formattedData = {
+        uniqueIDforEmail: `${process.env.NEXT_PUBLIC_APP_URL}/user?email=${updatedData.email}&&uniqueID=${uniqueID}`,
         name: getValues().name,
         quizEmail: updatedData.email,
         answers: Object.keys(updatedData)
