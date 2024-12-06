@@ -229,6 +229,8 @@ const LifestyleQuestionnaire = () => {
   let uniqueID = generateUUID(10);
   console.log(uniqueID);
 
+  const [response, setResponse] = useState() as any;
+  console.log(response);
   const onSubmit = async (data: any) => {
     try {
       const updatedData = { ...data };
@@ -248,9 +250,6 @@ const LifestyleQuestionnaire = () => {
         updatedData.height = `${data.height} cm`;
       }
 
-      let uniqueID = generateUUID(10);
-      localStorage.setItem("quizResults", uniqueID);
-      console.log(uniqueID);
       const formattedData = {
         uniqueIDforEmail: `${process.env.NEXT_PUBLIC_APP_URL}/user?email=${updatedData.email}&&uniqueID=${uniqueID}`,
         name: getValues().name,
@@ -283,7 +282,11 @@ const LifestyleQuestionnaire = () => {
         }
       );
       console.log("response: ", res);
+      console.log("response: ", res.body);
+      setResponse(res);
       if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("quizResults", data.data.id);
         // If submission is successful, save the form data to state and trigger the computation
         setProcessedAnswers(formattedData.answers);
         setQuizResults(false);
