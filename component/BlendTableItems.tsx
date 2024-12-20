@@ -654,15 +654,15 @@ const BlendTab = ({ answers, computations, name }: any) => {
                 <path d="M2 12H22"></path>
               </svg>
             </a>
-            <div className="relative">
+            <div className="relative overflow-x-hidden">
               <img
                 src="/mockup-packaging.png"
                 style={{ marginTop: "-117px" }}
-                className=" md:w-[34rem] w-[30rem] h-[30rem] md:h-[34rem]"
+                className=" md:w-[34rem] w-[100vw] md:scale-x-100 scale-x-125 h-[30rem] md:h-[34rem]"
               />
               <div
                 style={{ justifyContent: "flex-start", display: "flex" }}
-                className="z-10 w-20 md:w-28 truncate items-start justify-start text-xs md:text-[1rem] top-[67%] md:top-[68.5%] left-[38.5%] text-white absolute"
+                className="z-10 w-20 md:w-28  truncate items-start justify-start text-xs md:text-[1rem] top-[67%] md:top-[68.5%] left-[36%] md:left-[38.5%] text-white absolute"
               >
                 {name}
               </div>
@@ -841,7 +841,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
                           justifyContent: "flex-start",
                           display: "flex",
                         }}
-                        className="absolute w-28 truncate bottom-[63px] left-[38px] text-white"
+                        className="absolute w-28 truncate bottom-[52px] left-[33px] text-white"
                       >
                         {name}
                       </div>

@@ -26,8 +26,15 @@ const Blend = () => {
       );
       const data = await response.json();
       console.log(data);
-      setProfileData(data.data);
-      setName(data.data?.name || "");
+      console.log(uniqueID);
+      console.log(data.data.id);
+      if (data.data.id == uniqueID) {
+        setIsLinkExpired(false);
+        setProfileData(data.data);
+        setName(data.data?.name || "");
+      } else {
+        setIsLinkExpired(true);
+      }
     } catch (error) {
       console.log("Error fetching profile data:", error);
     }
@@ -35,16 +42,7 @@ const Blend = () => {
 
   useEffect(() => {
     if (email && uniqueID) {
-      const storedUniqueID = localStorage.getItem("quizResults");
-      console.log(storedUniqueID);
-
-      // Check if the email and the uniqueID match
-      if (storedUniqueID && uniqueID === storedUniqueID) {
-        fetchUserProfileData();
-        setIsLinkExpired(false);
-      } else {
-        setIsLinkExpired(true);
-      }
+      fetchUserProfileData();
     }
   }, [email, uniqueID]);
 
