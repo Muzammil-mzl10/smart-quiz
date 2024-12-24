@@ -13,11 +13,11 @@ const Blend = () => {
   const fetchUserProfileData = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/quizes/fetchByEmail`,
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/quizes/fetchById`,
         {
           method: "POST",
           body: JSON.stringify({
-            quizEmail: email,
+            id: uniqueID,
           }),
           headers: {
             "Content-Type": "application/json",
