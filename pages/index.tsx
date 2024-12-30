@@ -25,6 +25,7 @@ import { questions } from "../component/questionaire";
 import UniqueSmartBlend from "../component/UniqueSmartblend";
 import useComputation from "@/hooks/useComputation";
 import BlendTab from "@/component/BlendTableItems";
+import Link from "next/link";
 
 const LifestyleQuestionnaire = () => {
   const [quizResults, setQuizResults] = useState(true);
@@ -124,6 +125,7 @@ const LifestyleQuestionnaire = () => {
     Q40: [1],
   });
   const [formData, setFormData] = useState<any>(getValues());
+  const [isQuizSSubmitted, setisQuizSubmitted] = useState() as any;
 
   useEffect(() => {
     const values = getValues();
@@ -133,6 +135,11 @@ const LifestyleQuestionnaire = () => {
   useEffect(() => {
     reset(formData);
   }, [formData, reset]);
+  useEffect(() => {
+    const dataString = localStorage.getItem("questionaireResult"); // Value is string | null
+    console.log(dataString);
+    setisQuizSubmitted(dataString);
+  }, []);
 
   const renderQuestions = () => {
     let allQuestions: any = [...questions];
@@ -286,7 +293,7 @@ const LifestyleQuestionnaire = () => {
       setResponse(res);
       if (res.ok) {
         const data = await res.json();
-        localStorage.setItem("quizResults", data.data.id);
+        localStorage.setItem("questionaireResult", data.data.id);
         // If submission is successful, save the form data to state and trigger the computation
         setProcessedAnswers(formattedData.answers);
         setQuizResults(false);
@@ -922,19 +929,27 @@ const LifestyleQuestionnaire = () => {
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      className="lucide lucide-move-right ml-2 h-4"
+                      className="lucide lucide-move-right ml-2 mt-1 h-4"
                     >
                       <path d="M18 8L22 12L18 16"></path>
                       <path d="M2 12H22"></path>
                     </svg>
                   </a>
+                  {isQuizSSubmitted ? (
+                    <Link
+                      className="flex w-full mt-3 justify-center rounded-3xl bg-[#78C1F3] px-4 py-3 text-sm font-semibold leading-6 text-white"
+                      href={`/user?email=SmartBlend&&uniqueID=${isQuizSSubmitted}`}
+                    >
+                      Zie vorige resultaat
+                    </Link>
+                  ) : null}
 
                   {/* <button
                     onClick={() => setIntroSection(false)}
                     className="bg-[#78C1F3] hover:scale-110 ease-in duration-500 text-white py-4 px-8 rounded-3xl font-bold text-xl mt-10"
-                  >
+                    >
                     Start de vitaminetest
-                  </button> */}
+                    </button> */}
                 </div>
               </div>
               <div className="rounded-lg bg-white p-6 shadow-lg"></div>
