@@ -80,19 +80,19 @@ const PricingSelect = () => {
       descriptions: [
         "Eens per drie maanden verstuurd",
         "Maandelijks gefactureerd",
-        "Gratis verzending",
         "Mogelijkheid voor het zelf (na overleg) wijzigen van je formule",
-        "14-daagse tevredenheidsgarantie",
+        "Gratis hoog gedoseerde Omega 3  (ter waarde van €25)",
+        "Tevredenheidsgarantie: niet tevreden? Geld terug.",
       ],
     },
     {
-      title: "Eenmalige aankoop",
+      title: "Eenmalige aanloop",
       value: "option2",
       price: "98",
       descriptions: [
-        " Een potje (voor 30 dagen)",
+        "Een potje (voor 30 dagen)",
         "Ideale manier om uit te testen of het iets voor je is",
-        "Gratis verzending",
+        "Tevredenheidsgarantie: niet tevreden? Geld terug.",
       ],
     },
   ];

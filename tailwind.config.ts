@@ -3,14 +3,18 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/**/*.{js,ts,jsx,tsx}", 
+    "./src/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}", 
+    "./components/**/*.{js,ts,jsx,tsx}",
     "./app/**/*.{js,ts,jsx,tsx}",
   ],
 
   theme: {
     extend: {
+      screens: {
+        xxs: "400px", // Extra extra small (≤ 400px)
+        xss: "430px", // Extra small (401px - 430px)
+      },
       colors: {
         "pastel-red-400": "#e57373",
         "pastel-blue-400": "#64b5f6",
