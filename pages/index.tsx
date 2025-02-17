@@ -935,6 +935,15 @@ const LifestyleQuestionnaire = () => {
                       <path d="M2 12H22"></path>
                     </svg>
                   </a>
+
+                  {/* <button
+                    onClick={() => setIntroSection(false)}
+                    className="bg-[#78C1F3] hover:scale-110 ease-in duration-500 text-white py-4 px-8 rounded-3xl font-bold text-xl mt-10"
+                    >
+                    Start de vitaminetest
+                    </button> */}
+                </div>
+                <div className=" px-5 md:px-16">
                   {isQuizSSubmitted ? (
                     <Link
                       className="flex w-full mt-3 justify-center rounded-3xl bg-[#78C1F3] px-4 py-3 text-sm font-semibold leading-6 text-white"
@@ -943,13 +952,6 @@ const LifestyleQuestionnaire = () => {
                       Zie vorige resultaat
                     </Link>
                   ) : null}
-
-                  {/* <button
-                    onClick={() => setIntroSection(false)}
-                    className="bg-[#78C1F3] hover:scale-110 ease-in duration-500 text-white py-4 px-8 rounded-3xl font-bold text-xl mt-10"
-                    >
-                    Start de vitaminetest
-                    </button> */}
                 </div>
               </div>
               <div className="rounded-lg bg-white p-6 shadow-lg"></div>

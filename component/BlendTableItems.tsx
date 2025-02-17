@@ -960,7 +960,7 @@ const BlendTab = ({ answers, computations, name }: any) => {
             </a>
             <div className="relative overflow-x-hidden">
               <img
-                src="/mockup-packaging.png"
+                src="/quizPage/mockup-packaging (resized).png"
                 style={{ marginTop: "-117px" }}
                 className=" md:w-[34rem] w-[100vw] md:scale-x-100 scale-x-125 h-[30rem] md:h-[34rem]"
               />
