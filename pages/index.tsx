@@ -26,6 +26,7 @@ import UniqueSmartBlend from "../component/UniqueSmartblend";
 import useComputation from "@/hooks/useComputation";
 import BlendTab from "@/component/BlendTableItems";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LifestyleQuestionnaire = () => {
   const [quizResults, setQuizResults] = useState(true);
@@ -111,6 +112,7 @@ const LifestyleQuestionnaire = () => {
 
     return words.slice(0, numWords).join("-");
   };
+  const router = useRouter();
   const selectedQ42 = watch("Q42");
   const selectedQ49 = watch("Q49");
   const selectedGender = watch("gender");
@@ -127,6 +129,13 @@ const LifestyleQuestionnaire = () => {
   const [formData, setFormData] = useState<any>(getValues());
   const [isQuizSSubmitted, setisQuizSubmitted] = useState() as any;
 
+  const searchParams = useSearchParams(); // Get the search parameters from the URL
+
+  // Fetch the 'source' query parameter
+  const source = searchParams?.get("source") || "default"; // Defaults to "default" if not found
+
+  console.log("Source Parameter:", source);
+
   useEffect(() => {
     const values = getValues();
     setFormData(values);
@@ -137,6 +146,9 @@ const LifestyleQuestionnaire = () => {
   }, [formData, reset]);
   useEffect(() => {
     const dataString = localStorage.getItem("questionaireResult"); // Value is string | null
+    if (dataString) {
+      router.push(`/user?email=SmartBlend&&uniqueID=${dataString}`);
+    }
     console.log(dataString);
     setisQuizSubmitted(dataString);
   }, []);
@@ -256,11 +268,16 @@ const LifestyleQuestionnaire = () => {
       } else {
         updatedData.height = `${data.height} cm`;
       }
+      let listID = 8;
+      if (source == "hairnail") {
+        listID = 9;
+      }
 
       const formattedData = {
         uniqueIDforEmail: `${process.env.NEXT_PUBLIC_APP_URL}/user?email=${updatedData.email}&&uniqueID=${uniqueID}`,
         name: getValues().name,
         quizEmail: updatedData.email,
+        listId: listID,
         answers: Object.keys(updatedData)
           .filter((key) => key !== "name" && key !== "email")
           .map((key) => ({
