@@ -147,7 +147,7 @@ const LifestyleQuestionnaire = () => {
   useEffect(() => {
     const dataString = localStorage.getItem("questionaireResult"); // Value is string | null
     if (dataString) {
-      router.push(`/user?email=SmartBlend&&uniqueID=${dataString}`);
+      // router.push(`/user?email=SmartBlend&&uniqueID=${dataString}`);
     }
     console.log(dataString);
     setisQuizSubmitted(dataString);
