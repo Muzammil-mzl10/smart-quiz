@@ -271,6 +271,12 @@ const LifestyleQuestionnaire = () => {
       let listID = 8;
       if (source == "hairnail") {
         listID = 9;
+      } else if (source == "energy") {
+        listID = 10;
+      } else if (source == "guthealth") {
+        listID = 11;
+      } else if (source == "immunity") {
+        listID = 12;
       }
 
       const formattedData = {
